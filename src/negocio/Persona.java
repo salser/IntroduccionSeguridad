@@ -5,6 +5,8 @@
  */
 package negocio;
 
+import java.util.List;
+
 /**
  *
  * @author Henry Salazar Serrano
@@ -15,4 +17,6 @@ public class Persona {
     private Contrasena contrasenia;
     private TipoUsuario tipo;
     private String correo;
+    private DatosFinancieros datosF;
+    private List<DatosMedicos> datosMedicos;
 }
