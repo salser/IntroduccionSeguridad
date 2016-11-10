@@ -12,6 +12,39 @@ import java.util.List;
  * @author Henry Salazar Serrano
  */
 public class Grupo {
+    private String nombreG;
     private String tipoGrupo;
     private List<String> publicaciones;
+
+    public Grupo(String tipoGrupo, List<String> publicaciones, String nombreG) {
+        this.nombreG = nombreG;
+        this.tipoGrupo = tipoGrupo;
+        this.publicaciones = publicaciones;
+    }
+
+    public String getNombreG() {
+        return nombreG;
+    }
+
+    public void setNombreG(String nombreG) {
+        this.nombreG = nombreG;
+    }
+    
+    public String getTipoGrupo() {
+        return tipoGrupo;
+    }
+
+    public void setTipoGrupo(String tipoGrupo) {
+        this.tipoGrupo = tipoGrupo;
+    }
+
+    public List<String> getPublicaciones() {
+        return publicaciones;
+    }
+
+    public void setPublicaciones(List<String> publicaciones) {
+        this.publicaciones = publicaciones;
+    }
+    
+    
 }

@@ -15,4 +15,36 @@ public class Contrasena {
     private GregorianCalendar fechaRegistro;
     private GregorianCalendar fechaInicioContraseña;
     private String contraseniaAlpha;
+
+    public Contrasena(GregorianCalendar fechaRegistro, GregorianCalendar fechaInicioContraseña, String contraseniaAlpha) {
+        this.fechaRegistro = fechaRegistro;
+        this.fechaInicioContraseña = fechaInicioContraseña;
+        this.contraseniaAlpha = contraseniaAlpha;
+    }
+
+    public GregorianCalendar getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(GregorianCalendar fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public GregorianCalendar getFechaInicioContraseña() {
+        return fechaInicioContraseña;
+    }
+
+    public void setFechaInicioContraseña(GregorianCalendar fechaInicioContraseña) {
+        this.fechaInicioContraseña = fechaInicioContraseña;
+    }
+
+    public String getContraseniaAlpha() {
+        return contraseniaAlpha;
+    }
+
+    public void setContraseniaAlpha(String contraseniaAlpha) {
+        this.contraseniaAlpha = contraseniaAlpha;
+    }
+    
+    
 }
