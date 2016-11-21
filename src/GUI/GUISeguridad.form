@@ -57,14 +57,17 @@
       </Layout>
       <SubComponents>
         <Container class="javax.swing.JTabbedPane" name="jTabSegu">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="jpanelLogin">
+            <Container class="javax.swing.JPanel" name="jpanelHome">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Iniciar Sesi&#xf3;n">
-                    <Property name="tabTitle" type="java.lang.String" value="Iniciar Sesi&#xf3;n"/>
+                  <JTabbedPaneConstraints tabName="Home">
+                    <Property name="tabTitle" type="java.lang.String" value="Home"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -74,14 +77,8 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jbtnLogIn" pref="198" max="32767" attributes="0"/>
-                              <Component id="jTextFieldEmail" alignment="0" pref="198" max="32767" attributes="0"/>
-                              <Component id="jLabel1" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
-                              <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
-                              <Component id="contraLogIn" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="545" max="32767" attributes="0"/>
+                          <Component id="jTabbedPaneHome" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="328" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -89,234 +86,254 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextFieldEmail" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="contraLogIn" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jbtnLogIn" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="585" max="32767" attributes="0"/>
+                          <Component id="jTabbedPaneHome" min="-2" pref="551" max="-2" attributes="0"/>
+                          <EmptySpace pref="174" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel1">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Correo Electr&#xf3;nico"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jTextFieldEmail">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="asdasd@mail.com"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldEmailFocusGained"/>
-                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldEmailFocusLost"/>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldEmailActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel2">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Contrase&#xf1;a"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JPasswordField" name="contraLogIn">
-                </Component>
-                <Component class="javax.swing.JButton" name="jbtnLogIn">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Ingresar"/>
-                  </Properties>
-                </Component>
-              </SubComponents>
-            </Container>
-            <Container class="javax.swing.JPanel" name="jpanelCrearUsu">
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Crear Usuario">
-                    <Property name="tabTitle" type="java.lang.String" value="Crear Usuario"/>
-                  </JTabbedPaneConstraints>
-                </Constraint>
-              </Constraints>
+                <Container class="javax.swing.JTabbedPane" name="jTabbedPaneHome">
 
-              <Layout>
-                <DimensionLayout dim="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+                  <SubComponents>
+                    <Container class="javax.swing.JPanel" name="jPanelLogIn">
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                          <JTabbedPaneConstraints tabName="Iniciar Sesi&#xf3;n">
+                            <Property name="tabTitle" type="java.lang.String" value="Iniciar Sesi&#xf3;n"/>
+                          </JTabbedPaneConstraints>
+                        </Constraint>
+                      </Constraints>
+
+                      <Layout>
+                        <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnCrearUsuario" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jtextFieldNomUsu" max="32767" attributes="0"/>
-                                      <Component id="jLabel3" max="32767" attributes="0"/>
-                                      <Component id="jLabel4" max="32767" attributes="0"/>
-                                      <Component id="jtextFieldCorreoCrear" pref="185" max="32767" attributes="0"/>
-                                      <Component id="jLabel6" max="32767" attributes="0"/>
-                                      <Component id="contraCrear" max="32767" attributes="0"/>
-                                      <Component id="jLabel7" max="32767" attributes="0"/>
-                                      <Component id="contraRepitaCrear" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="jbtnLogIn" max="32767" attributes="0"/>
+                                      <Component id="jTextFieldEmail" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jLabel1" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
+                                      <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="contraLogIn" alignment="0" min="-2" pref="198" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabel8" max="32767" attributes="0"/>
-                                      <Component id="jtextNombreCrear" max="32767" attributes="0"/>
-                                      <Component id="jLabel16" pref="169" max="32767" attributes="0"/>
-                                      <Component id="jtextIngresosMensualesCrear" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabel9" min="-2" pref="124" max="-2" attributes="0"/>
-                                      <Component id="jtextApellidoCrear" max="32767" attributes="0"/>
-                                      <Component id="jLabel17" alignment="0" pref="169" max="32767" attributes="0"/>
-                                      <Component id="jtextIngresosTotalesCrear" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="109" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                </DimensionLayout>
-                <DimensionLayout dim="1">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jTextFieldEmail" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="contraLogIn" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                                  <Component id="jbtnLogIn" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jtextFieldNomUsu" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jtextNombreCrear" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jtextApellidoCrear" alignment="3" min="-2" max="-2" attributes="0"/>
+                        </DimensionLayout>
+                      </Layout>
+                      <SubComponents>
+                        <Component class="javax.swing.JLabel" name="jLabel1">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Correo Electr&#xf3;nico"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="jTextFieldEmail">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="asdasd@mail.com"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldEmailFocusGained"/>
+                            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldEmailFocusLost"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel2">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Contrase&#xf1;a"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JPasswordField" name="contraLogIn">
+                        </Component>
+                        <Component class="javax.swing.JButton" name="jbtnLogIn">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Ingresar"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnLogInActionPerformed"/>
+                          </Events>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Container class="javax.swing.JPanel" name="jpanelCrearUsu">
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                          <JTabbedPaneConstraints tabName="Crear Usuario">
+                            <Property name="tabTitle" type="java.lang.String" value="Crear Usuario"/>
+                          </JTabbedPaneConstraints>
+                        </Constraint>
+                      </Constraints>
+
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="btnCrearUsuario1" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="jtextFieldNomUsu" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jLabel24" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jLabel25" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jtextFieldCorreoCrear" alignment="0" pref="185" max="32767" attributes="0"/>
+                                              <Component id="jLabel26" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="contraCrear1" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jLabel27" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="contraRepitaCrear1" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="jLabel28" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jtextNombreCrear" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jLabel30" alignment="0" pref="169" max="32767" attributes="0"/>
+                                              <Component id="jtextIngresosMensualesCrear1" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="jLabel29" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
+                                              <Component id="jtextApellidoCrear" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jLabel31" alignment="0" pref="169" max="32767" attributes="0"/>
+                                              <Component id="jtextIngresosTotalesCrear1" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jtextFieldNomUsu" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jtextNombreCrear" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jtextApellidoCrear" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel30" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel31" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jtextFieldCorreoCrear" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jtextIngresosMensualesCrear1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jtextIngresosTotalesCrear1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="contraCrear1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="contraRepitaCrear1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnCrearUsuario1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jtextFieldCorreoCrear" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jtextIngresosMensualesCrear" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jtextIngresosTotalesCrear" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="contraCrear" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="contraRepitaCrear" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnCrearUsuario" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="463" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                </DimensionLayout>
-              </Layout>
-              <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel3">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Nombre Usuario"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jtextFieldNomUsu">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="pepito123"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtextFieldNomUsuFocusGained"/>
-                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtextFieldNomUsuFocusLost"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel4">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Correo Electr&#xf3;nico"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jtextFieldCorreoCrear">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="asdasd@mail.com"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="hierarchyChanged" listener="java.awt.event.HierarchyListener" parameters="java.awt.event.HierarchyEvent" handler="jtextFieldCorreoCrearHierarchyChanged"/>
-                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtextFieldCorreoCrearFocusGained"/>
-                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtextFieldCorreoCrearFocusLost"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel6">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Contrase&#xf1;a"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JPasswordField" name="contraCrear">
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel7">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Repita la Contrase&#xf1;a"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JPasswordField" name="contraRepitaCrear">
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel8">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Nombre"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jtextNombreCrear">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Pepito"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtextNombreCrearFocusGained"/>
-                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtextNombreCrearFocusLost"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel9">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Apellido"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jtextApellidoCrear">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Morales"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtextApellidoCrearFocusGained"/>
-                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtextApellidoCrearFocusLost"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="btnCrearUsuario">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Crear Usuario"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel16">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Ingresos Mensuales"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jtextIngresosMensualesCrear">
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel17">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Ingresos Totales"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jtextIngresosTotalesCrear">
-                </Component>
+                        </DimensionLayout>
+                      </Layout>
+                      <SubComponents>
+                        <Component class="javax.swing.JLabel" name="jLabel24">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Nombre Usuario"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="jtextFieldNomUsu">
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel25">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Correo Electr&#xf3;nico"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="jtextFieldCorreoCrear">
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel26">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Contrase&#xf1;a"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JPasswordField" name="contraCrear1">
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel27">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Repita la Contrase&#xf1;a"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JPasswordField" name="contraRepitaCrear1">
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel28">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Nombre"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="jtextNombreCrear">
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel29">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Apellido"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="jtextApellidoCrear">
+                        </Component>
+                        <Component class="javax.swing.JButton" name="btnCrearUsuario1">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Crear Usuario"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel30">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Ingresos Mensuales"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="jtextIngresosMensualesCrear1">
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel31">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Ingresos Totales"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="jtextIngresosTotalesCrear1">
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                  </SubComponents>
+                </Container>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanelPerfil">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="Perfil">
@@ -330,9 +347,12 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="labelDatosCita" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="labelDatosCita" max="32767" attributes="0"/>
+                                  <EmptySpace pref="907" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="comboCitasPerfil" max="32767" attributes="0"/>
                                       <Group type="102" attributes="0">
@@ -355,13 +375,13 @@
                                       </Group>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabel13" max="32767" attributes="0"/>
-                                      <Component id="comboGastoPerfil" pref="144" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel13" min="-2" pref="144" max="-2" attributes="0"/>
+                                      <Component id="comboGastoPerfil" min="-2" pref="187" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace pref="461" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="268" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -412,6 +432,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jtextNombreApellidoPerfil">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel10">
                   <Properties>
@@ -427,6 +450,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jtextIngresosMensualesPerfil">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel12">
                   <Properties>
@@ -434,6 +460,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jtextIngresosTotalesPerfil">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel13">
                   <Properties>
@@ -442,16 +471,13 @@
                 </Component>
                 <Component class="javax.swing.JComboBox" name="comboGastoPerfil">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] {})" type="code"/>
                     </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JComboBox&lt;&gt;()"/>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
@@ -470,14 +496,10 @@
                 </Component>
                 <Component class="javax.swing.JComboBox" name="comboCitasPerfil">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] {})" type="code"/>
                     </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -486,6 +508,7 @@
                 <Component class="javax.swing.JLabel" name="labelDatosCita">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Datos Cita"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel15">
@@ -494,6 +517,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jtextNombreUsuarioPerfil">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
@@ -509,26 +535,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
                       <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelPublicacionesGrupo" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="comboVerGrupos" min="-2" pref="150" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                                          <Component id="btnMostrarGrupo" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jLabel19" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
@@ -560,7 +567,29 @@
                                   <Component id="btnCrearGrupo" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="113" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="349" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                  <Component id="labelPublicacionesGrupo" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="comboVerGrupos" min="-2" pref="150" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                          <Component id="btnMostrarGrupo" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jLabel19" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="675" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="jSeparator2" alignment="1" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -576,9 +605,9 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="labelPublicacionesGrupo" min="-2" pref="160" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel23" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -623,13 +652,8 @@
                 </Component>
                 <Component class="javax.swing.JComboBox" name="comboVerGrupos">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] {})" type="code"/>
                     </Property>
                   </Properties>
                   <AuxValues>
@@ -687,13 +711,8 @@
                 </Component>
                 <Component class="javax.swing.JComboBox" name="comboPublicarGrupo">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] {})" type="code"/>
                     </Property>
                   </Properties>
                   <AuxValues>

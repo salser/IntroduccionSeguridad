@@ -5,17 +5,30 @@
  */
 package GUI;
 
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
+import negocio.Contrasena;
+import negocio.DatosFinancieros;
+import negocio.Grupo;
+import negocio.Persona;
+
 /**
  *
  * @author MSI
  */
 public class GUISeguridad extends javax.swing.JFrame {
 
+    public static List<Persona> personas;
+    public static List<Grupo> grupos;
+
     /**
      * Creates new form GUISeguridad
      */
     public GUISeguridad() {
         initComponents();
+        personas = new ArrayList<Persona>();
+        grupos = new ArrayList<Grupo>();
     }
 
     /**
@@ -29,30 +42,32 @@ public class GUISeguridad extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jTabSegu = new javax.swing.JTabbedPane();
-        jpanelLogin = new javax.swing.JPanel();
+        jpanelHome = new javax.swing.JPanel();
+        jTabbedPaneHome = new javax.swing.JTabbedPane();
+        jPanelLogIn = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldEmail = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         contraLogIn = new javax.swing.JPasswordField();
         jbtnLogIn = new javax.swing.JButton();
         jpanelCrearUsu = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
         jtextFieldNomUsu = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
         jtextFieldCorreoCrear = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        contraCrear = new javax.swing.JPasswordField();
-        jLabel7 = new javax.swing.JLabel();
-        contraRepitaCrear = new javax.swing.JPasswordField();
-        jLabel8 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        contraCrear1 = new javax.swing.JPasswordField();
+        jLabel27 = new javax.swing.JLabel();
+        contraRepitaCrear1 = new javax.swing.JPasswordField();
+        jLabel28 = new javax.swing.JLabel();
         jtextNombreCrear = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
         jtextApellidoCrear = new javax.swing.JTextField();
-        btnCrearUsuario = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
-        jtextIngresosMensualesCrear = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        jtextIngresosTotalesCrear = new javax.swing.JTextField();
+        btnCrearUsuario1 = new javax.swing.JButton();
+        jLabel30 = new javax.swing.JLabel();
+        jtextIngresosMensualesCrear1 = new javax.swing.JTextField();
+        jLabel31 = new javax.swing.JLabel();
+        jtextIngresosTotalesCrear1 = new javax.swing.JTextField();
         jPanelPerfil = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jtextNombreApellidoPerfil = new javax.swing.JTextField();
@@ -90,6 +105,8 @@ public class GUISeguridad extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTabSegu.setEnabled(false);
+
         jLabel1.setText("Correo Electrónico");
 
         jTextFieldEmail.setText("asdasd@mail.com");
@@ -101,33 +118,33 @@ public class GUISeguridad extends javax.swing.JFrame {
                 jTextFieldEmailFocusLost(evt);
             }
         });
-        jTextFieldEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldEmailActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Contraseña");
 
         jbtnLogIn.setText("Ingresar");
+        jbtnLogIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnLogInActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jpanelLoginLayout = new javax.swing.GroupLayout(jpanelLogin);
-        jpanelLogin.setLayout(jpanelLoginLayout);
-        jpanelLoginLayout.setHorizontalGroup(
-            jpanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpanelLoginLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelLogInLayout = new javax.swing.GroupLayout(jPanelLogIn);
+        jPanelLogIn.setLayout(jPanelLogInLayout);
+        jPanelLogInLayout.setHorizontalGroup(
+            jPanelLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelLogInLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jbtnLogIn, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addGroup(jPanelLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jbtnLogIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(contraLogIn, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(545, Short.MAX_VALUE))
+                    .addComponent(contraLogIn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jpanelLoginLayout.setVerticalGroup(
-            jpanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpanelLoginLayout.createSequentialGroup()
+        jPanelLogInLayout.setVerticalGroup(
+            jPanelLogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelLogInLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -136,75 +153,30 @@ public class GUISeguridad extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(contraLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(21, 21, 21)
                 .addComponent(jbtnLogIn)
-                .addContainerGap(585, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabSegu.addTab("Iniciar Sesión", jpanelLogin);
+        jTabbedPaneHome.addTab("Iniciar Sesión", jPanelLogIn);
 
-        jLabel3.setText("Nombre Usuario");
+        jLabel24.setText("Nombre Usuario");
 
-        jtextFieldNomUsu.setText("pepito123");
-        jtextFieldNomUsu.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jtextFieldNomUsuFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jtextFieldNomUsuFocusLost(evt);
-            }
-        });
+        jLabel25.setText("Correo Electrónico");
 
-        jLabel4.setText("Correo Electrónico");
+        jLabel26.setText("Contraseña");
 
-        jtextFieldCorreoCrear.setText("asdasd@mail.com");
-        jtextFieldCorreoCrear.addHierarchyListener(new java.awt.event.HierarchyListener() {
-            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
-                jtextFieldCorreoCrearHierarchyChanged(evt);
-            }
-        });
-        jtextFieldCorreoCrear.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jtextFieldCorreoCrearFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jtextFieldCorreoCrearFocusLost(evt);
-            }
-        });
+        jLabel27.setText("Repita la Contraseña");
 
-        jLabel6.setText("Contraseña");
+        jLabel28.setText("Nombre");
 
-        jLabel7.setText("Repita la Contraseña");
+        jLabel29.setText("Apellido");
 
-        jLabel8.setText("Nombre");
+        btnCrearUsuario1.setText("Crear Usuario");
 
-        jtextNombreCrear.setText("Pepito");
-        jtextNombreCrear.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jtextNombreCrearFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jtextNombreCrearFocusLost(evt);
-            }
-        });
+        jLabel30.setText("Ingresos Mensuales");
 
-        jLabel9.setText("Apellido");
-
-        jtextApellidoCrear.setText("Morales");
-        jtextApellidoCrear.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jtextApellidoCrearFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jtextApellidoCrearFocusLost(evt);
-            }
-        });
-
-        btnCrearUsuario.setText("Crear Usuario");
-
-        jLabel16.setText("Ingresos Mensuales");
-
-        jLabel17.setText("Ingresos Totales");
+        jLabel31.setText("Ingresos Totales");
 
         javax.swing.GroupLayout jpanelCrearUsuLayout = new javax.swing.GroupLayout(jpanelCrearUsu);
         jpanelCrearUsu.setLayout(jpanelCrearUsuLayout);
@@ -213,30 +185,30 @@ public class GUISeguridad extends javax.swing.JFrame {
             .addGroup(jpanelCrearUsuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpanelCrearUsuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCrearUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCrearUsuario1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jpanelCrearUsuLayout.createSequentialGroup()
                         .addGroup(jpanelCrearUsuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jtextFieldNomUsu)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jtextFieldCorreoCrear, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(contraCrear)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(contraRepitaCrear))
+                            .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(contraCrear1)
+                            .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(contraRepitaCrear1))
                         .addGap(87, 87, 87)
                         .addGroup(jpanelCrearUsuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jtextNombreCrear)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                            .addComponent(jtextIngresosMensualesCrear))
+                            .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                            .addComponent(jtextIngresosMensualesCrear1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jpanelCrearUsuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtextApellidoCrear)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                            .addComponent(jtextIngresosTotalesCrear))
-                        .addGap(0, 109, Short.MAX_VALUE)))
+                            .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                            .addComponent(jtextIngresosTotalesCrear1))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jpanelCrearUsuLayout.setVerticalGroup(
@@ -244,9 +216,9 @@ public class GUISeguridad extends javax.swing.JFrame {
             .addGroup(jpanelCrearUsuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpanelCrearUsuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel28)
+                    .addComponent(jLabel29))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpanelCrearUsuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtextFieldNomUsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,52 +226,84 @@ public class GUISeguridad extends javax.swing.JFrame {
                     .addComponent(jtextApellidoCrear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpanelCrearUsuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel17))
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel30)
+                    .addComponent(jLabel31))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpanelCrearUsuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtextFieldCorreoCrear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtextIngresosMensualesCrear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtextIngresosTotalesCrear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtextIngresosMensualesCrear1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtextIngresosTotalesCrear1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
+                .addComponent(jLabel26)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contraCrear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contraCrear1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
+                .addComponent(jLabel27)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contraRepitaCrear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contraRepitaCrear1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCrearUsuario)
-                .addContainerGap(463, Short.MAX_VALUE))
+                .addComponent(btnCrearUsuario1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabSegu.addTab("Crear Usuario", jpanelCrearUsu);
+        jTabbedPaneHome.addTab("Crear Usuario", jpanelCrearUsu);
+
+        javax.swing.GroupLayout jpanelHomeLayout = new javax.swing.GroupLayout(jpanelHome);
+        jpanelHome.setLayout(jpanelHomeLayout);
+        jpanelHomeLayout.setHorizontalGroup(
+            jpanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpanelHomeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPaneHome)
+                .addGap(328, 328, 328))
+        );
+        jpanelHomeLayout.setVerticalGroup(
+            jpanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpanelHomeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPaneHome, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(174, Short.MAX_VALUE))
+        );
+
+        jTabSegu.addTab("Home", jpanelHome);
+
+        jPanelPerfil.setEnabled(false);
 
         jLabel5.setText("Nombre y Apellido");
+
+        jtextNombreApellidoPerfil.setEnabled(false);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel10.setText("Datos Financieros");
 
         jLabel11.setText("Ingresos Mensuales");
 
+        jtextIngresosMensualesPerfil.setEnabled(false);
+
         jLabel12.setText("Ingresos Totales");
+
+        jtextIngresosTotalesPerfil.setEnabled(false);
 
         jLabel13.setText("Gastos");
 
-        comboGastoPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboGastoPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
+        comboGastoPerfil.setEnabled(false);
 
         jLabel14r.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel14r.setText("Datos Medicos");
 
         jLabel14.setText("Citas");
 
-        comboCitasPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboCitasPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
+        comboCitasPerfil.setEnabled(false);
 
         labelDatosCita.setText("Datos Cita");
+        labelDatosCita.setEnabled(false);
 
         jLabel15.setText("Nombre Usuario");
+
+        jtextNombreUsuarioPerfil.setEnabled(false);
 
         javax.swing.GroupLayout jPanelPerfilLayout = new javax.swing.GroupLayout(jPanelPerfil);
         jPanelPerfil.setLayout(jPanelPerfilLayout);
@@ -307,8 +311,10 @@ public class GUISeguridad extends javax.swing.JFrame {
             jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelPerfilLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(labelDatosCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelPerfilLayout.createSequentialGroup()
+                        .addComponent(labelDatosCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(907, Short.MAX_VALUE))
                     .addGroup(jPanelPerfilLayout.createSequentialGroup()
                         .addGroup(jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(comboCitasPerfil, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -328,10 +334,10 @@ public class GUISeguridad extends javax.swing.JFrame {
                                     .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jtextNombreUsuarioPerfil))))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(comboGastoPerfil, 0, 144, Short.MAX_VALUE))))
-                .addContainerGap(268, Short.MAX_VALUE))
+                        .addGroup(jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboGastoPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(461, Short.MAX_VALUE))))
         );
         jPanelPerfilLayout.setVerticalGroup(
             jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,7 +378,7 @@ public class GUISeguridad extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel18.setText("Crear Grupo");
 
-        comboVerGrupos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboVerGrupos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
 
         labelPublicacionesGrupo.setText("Publicación grupo seleccionado");
 
@@ -390,7 +396,7 @@ public class GUISeguridad extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel22.setText("Publicar en Grupo");
 
-        comboPublicarGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboPublicarGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
 
         jLabel23.setText("Publicación");
 
@@ -400,21 +406,7 @@ public class GUISeguridad extends javax.swing.JFrame {
         jPanelGrupos.setLayout(jPanelGruposLayout);
         jPanelGruposLayout.setHorizontalGroup(
             jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator2)
             .addComponent(jSeparator1)
-            .addGroup(jPanelGruposLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelPublicacionesGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanelGruposLayout.createSequentialGroup()
-                        .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelGruposLayout.createSequentialGroup()
-                                .addComponent(comboVerGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(btnMostrarGrupo))
-                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
             .addGroup(jPanelGruposLayout.createSequentialGroup()
                 .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelGruposLayout.createSequentialGroup()
@@ -438,7 +430,23 @@ public class GUISeguridad extends javax.swing.JFrame {
                             .addComponent(jtextTipoGrupoCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(52, 52, 52)
                         .addComponent(btnCrearGrupo)))
-                .addGap(0, 113, Short.MAX_VALUE))
+                .addGap(0, 349, Short.MAX_VALUE))
+            .addGroup(jPanelGruposLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelGruposLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(labelPublicacionesGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanelGruposLayout.createSequentialGroup()
+                        .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelGruposLayout.createSequentialGroup()
+                                .addComponent(comboVerGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(btnMostrarGrupo))
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 675, Short.MAX_VALUE))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         jPanelGruposLayout.setVerticalGroup(
             jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -451,9 +459,9 @@ public class GUISeguridad extends javax.swing.JFrame {
                     .addComponent(btnMostrarGrupo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelPublicacionesGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(2, 2, 2)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
                     .addComponent(jLabel23))
@@ -513,10 +521,6 @@ public class GUISeguridad extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldEmailActionPerformed
-
     private void jTextFieldEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldEmailFocusGained
         jTextFieldEmail.setText("");
     }//GEN-LAST:event_jTextFieldEmailFocusGained
@@ -527,50 +531,9 @@ public class GUISeguridad extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldEmailFocusLost
 
-    private void jtextFieldNomUsuFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtextFieldNomUsuFocusGained
-        jtextFieldNomUsu.setText("");
-    }//GEN-LAST:event_jtextFieldNomUsuFocusGained
-
-    private void jtextFieldNomUsuFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtextFieldNomUsuFocusLost
-        if (jtextFieldNomUsu.getText().equals("")) {
-            jtextFieldNomUsu.setText("pepito123");
-        }
-
-    }//GEN-LAST:event_jtextFieldNomUsuFocusLost
-
-    private void jtextFieldCorreoCrearFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtextFieldCorreoCrearFocusGained
-        jtextFieldCorreoCrear.setText("");
-    }//GEN-LAST:event_jtextFieldCorreoCrearFocusGained
-
-    private void jtextFieldCorreoCrearHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_jtextFieldCorreoCrearHierarchyChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtextFieldCorreoCrearHierarchyChanged
-
-    private void jtextFieldCorreoCrearFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtextFieldCorreoCrearFocusLost
-        if (jtextFieldCorreoCrear.getText().equals("")) {
-            jtextFieldCorreoCrear.setText("asdasd@mail.com");
-        }
-    }//GEN-LAST:event_jtextFieldCorreoCrearFocusLost
-
-    private void jtextNombreCrearFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtextNombreCrearFocusGained
-        jtextNombreCrear.setText("");
-    }//GEN-LAST:event_jtextNombreCrearFocusGained
-
-    private void jtextNombreCrearFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtextNombreCrearFocusLost
-        if (jtextNombreCrear.getText().equals("")) {
-            jtextNombreCrear.setText("Pepito");
-        }
-    }//GEN-LAST:event_jtextNombreCrearFocusLost
-
-    private void jtextApellidoCrearFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtextApellidoCrearFocusGained
-        jtextApellidoCrear.setText("");
-    }//GEN-LAST:event_jtextApellidoCrearFocusGained
-
-    private void jtextApellidoCrearFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtextApellidoCrearFocusLost
-        if (jtextApellidoCrear.getText().equals("")) {
-            jtextApellidoCrear.setText("Morales");
-        }
-    }//GEN-LAST:event_jtextApellidoCrearFocusLost
+    private void jbtnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLogInActionPerformed
+        entroUsuario(evt);
+    }//GEN-LAST:event_jbtnLogInActionPerformed
 
     /**
      * @param args the command line arguments
@@ -598,27 +561,34 @@ public class GUISeguridad extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GUISeguridad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUISeguridad().setVisible(true);
+                Persona p = new Persona("Henry", "Salazar", new Contrasena(null, null, "lol"), "usuario", "lol", new DatosFinancieros(0, 0, null), null, "salser");
+                personas.add(p);
+                Grupo g = new Grupo("Jazz", "InteresJazz");
+                Grupo g1 = new Grupo("Rock", "Rockeros");
+                Grupo g2 = new Grupo("Rubick", "Rubicks Cubes");
+                grupos.add(g);
+                grupos.add(g1);
+                grupos.add(g2);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearGrupo;
-    private javax.swing.JButton btnCrearUsuario;
+    private javax.swing.JButton btnCrearUsuario1;
     private javax.swing.JButton btnMostrarGrupo;
     private javax.swing.JButton btnPublicar;
     private javax.swing.JComboBox<String> comboCitasPerfil;
     private javax.swing.JComboBox<String> comboGastoPerfil;
     private javax.swing.JComboBox<String> comboPublicarGrupo;
     private javax.swing.JComboBox<String> comboVerGrupos;
-    private javax.swing.JPasswordField contraCrear;
+    private javax.swing.JPasswordField contraCrear1;
     private javax.swing.JPasswordField contraLogIn;
-    private javax.swing.JPasswordField contraRepitaCrear;
+    private javax.swing.JPasswordField contraRepitaCrear1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -627,8 +597,6 @@ public class GUISeguridad extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel14r;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -636,29 +604,33 @@ public class GUISeguridad extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelGrupos;
+    private javax.swing.JPanel jPanelLogIn;
     private javax.swing.JPanel jPanelPerfil;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabSegu;
+    private javax.swing.JTabbedPane jTabbedPaneHome;
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JButton jbtnLogIn;
     private javax.swing.JPanel jpanelCrearUsu;
-    private javax.swing.JPanel jpanelLogin;
+    private javax.swing.JPanel jpanelHome;
     private javax.swing.JTextField jtextApellidoCrear;
     private javax.swing.JTextField jtextFieldCorreoCrear;
     private javax.swing.JTextField jtextFieldNomUsu;
-    private javax.swing.JTextField jtextIngresosMensualesCrear;
+    private javax.swing.JTextField jtextIngresosMensualesCrear1;
     private javax.swing.JTextField jtextIngresosMensualesPerfil;
-    private javax.swing.JTextField jtextIngresosTotalesCrear;
+    private javax.swing.JTextField jtextIngresosTotalesCrear1;
     private javax.swing.JTextField jtextIngresosTotalesPerfil;
     private javax.swing.JTextField jtextNombreApellidoPerfil;
     private javax.swing.JTextField jtextNombreCrear;
@@ -669,4 +641,33 @@ public class GUISeguridad extends javax.swing.JFrame {
     private javax.swing.JLabel labelDatosCita;
     private javax.swing.JLabel labelPublicacionesGrupo;
     // End of variables declaration//GEN-END:variables
+
+    private void entroUsuario(ActionEvent evt) {
+        String email = jTextFieldEmail.getText();
+        String contra = contraLogIn.getText();
+        for (Persona persona : personas) {
+            if (persona.getCorreo().equals(email) && persona.getContrasenia().getContraseniaAlpha().equals(contra)) {
+                if (persona.getTipo().equals("usuario")) {
+                    jTextFieldEmail.setText(email);
+                    jTextFieldEmail.setEnabled(false);
+                    contraLogIn.setText(contra);
+                    contraLogIn.setEnabled(false);
+                    jTabSegu.setEnabled(true);
+                    jtextNombreApellidoPerfil.setText(persona.getNombre() + " " + persona.getApellido());
+                    jtextNombreUsuarioPerfil.setText(persona.getNomUsuario());
+                    jtextIngresosMensualesPerfil.setText("NO TIENE PERMISO");
+                    jtextIngresosTotalesPerfil.setText("NO TIENE PERMISO");
+                    comboGastoPerfil.addItem("NO TIENE PERMISO");
+                    comboCitasPerfil.addItem("NO TIENE PERMISO");
+                    labelDatosCita.setText("NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO");
+                    for (Grupo gr : grupos) {
+                        String elemento = gr.getNombreG();
+                        comboVerGrupos.addItem(elemento);
+                        comboPublicarGrupo.addItem(elemento);
+                    }
+
+                }
+            }
+        }
+    }
 }

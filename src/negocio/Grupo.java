@@ -5,6 +5,7 @@
  */
 package negocio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,10 +17,10 @@ public class Grupo {
     private String tipoGrupo;
     private List<String> publicaciones;
 
-    public Grupo(String tipoGrupo, List<String> publicaciones, String nombreG) {
+    public Grupo(String tipoGrupo, String nombreG) {
         this.nombreG = nombreG;
         this.tipoGrupo = tipoGrupo;
-        this.publicaciones = publicaciones;
+        this.publicaciones = new ArrayList<String>();
     }
 
     public String getNombreG() {

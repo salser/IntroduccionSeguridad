@@ -16,12 +16,12 @@ public class Persona {
     private String apellido;
     private String nomUsuario;
     private Contrasena contrasenia;
-    private TipoUsuario tipo;
+    private String tipo;
     private String correo;
     private DatosFinancieros datosF;
     private List<DatosMedicos> datosMedicos;
 
-    public Persona(String nombre, String apellido, Contrasena contrasenia, TipoUsuario tipo, String correo, DatosFinancieros datosF, List<DatosMedicos> datosMedicos, String nomUsuario) {
+    public Persona(String nombre, String apellido, Contrasena contrasenia, String tipo, String correo, DatosFinancieros datosF, List<DatosMedicos> datosMedicos, String nomUsuario) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.contrasenia = contrasenia;
@@ -64,11 +64,11 @@ public class Persona {
         this.contrasenia = contrasenia;
     }
 
-    public TipoUsuario getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(TipoUsuario tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
