@@ -567,6 +567,12 @@ public class GUISeguridad extends javax.swing.JFrame {
                 new GUISeguridad().setVisible(true);
                 Persona p = new Persona("Henry", "Salazar", new Contrasena(null, null, "lol"), "usuario", "lol", new DatosFinancieros(0, 0, null), null, "salser");
                 personas.add(p);
+                List<Double> gastos = new ArrayList<Double>();
+                gastos.add((double)25000);
+                gastos.add((double)35700.230);
+                gastos.add((double)53250.35);
+                Persona p2 = new Persona("Harold", "Salazar", new Contrasena(null, null, "lol"), "banquero", "lollol", new DatosFinancieros((double)10000, (double)1536980, gastos), null, "salser2");
+                personas.add(p2);
                 Grupo g = new Grupo("Jazz", "InteresJazz");
                 Grupo g1 = new Grupo("Rock", "Rockeros");
                 Grupo g2 = new Grupo("Rubick", "Rubicks Cubes");
@@ -645,16 +651,16 @@ public class GUISeguridad extends javax.swing.JFrame {
     private void entroUsuario(ActionEvent evt) {
         String email = jTextFieldEmail.getText();
         String contra = contraLogIn.getText();
-        for (Persona persona : personas) {
-            if (persona.getCorreo().equals(email) && persona.getContrasenia().getContraseniaAlpha().equals(contra)) {
-                if (persona.getTipo().equals("usuario")) {
+        for (Persona p : personas) {
+            if (p.getCorreo().equals(email) && p.getContrasenia().getContraseniaAlpha().equals(contra)) {
+                if (p.getTipo().equals("usuario")) {
                     jTextFieldEmail.setText(email);
                     jTextFieldEmail.setEnabled(false);
                     contraLogIn.setText(contra);
                     contraLogIn.setEnabled(false);
                     jTabSegu.setEnabled(true);
-                    jtextNombreApellidoPerfil.setText(persona.getNombre() + " " + persona.getApellido());
-                    jtextNombreUsuarioPerfil.setText(persona.getNomUsuario());
+                    jtextNombreApellidoPerfil.setText(p.getNombre() + " " + p.getApellido());
+                    jtextNombreUsuarioPerfil.setText(p.getNomUsuario());
                     jtextIngresosMensualesPerfil.setText("NO TIENE PERMISO");
                     jtextIngresosTotalesPerfil.setText("NO TIENE PERMISO");
                     comboGastoPerfil.addItem("NO TIENE PERMISO");
@@ -665,7 +671,28 @@ public class GUISeguridad extends javax.swing.JFrame {
                         comboVerGrupos.addItem(elemento);
                         comboPublicarGrupo.addItem(elemento);
                     }
-
+                }else if(p.getTipo().equals("banquero")){
+                    jTextFieldEmail.setText(email);
+                    jTextFieldEmail.setEnabled(false);
+                    contraLogIn.setText(contra);
+                    contraLogIn.setEnabled(false);
+                    jTabSegu.setEnabled(true);
+                    jtextNombreApellidoPerfil.setText(p.getNombre() + " " + p.getApellido());
+                    jtextNombreUsuarioPerfil.setText(p.getNomUsuario());
+                    jtextIngresosMensualesPerfil.setText(String.valueOf(p.getDatosF().getIngresosMensuales()));
+                    jtextIngresosTotalesPerfil.setText(String.valueOf(p.getDatosF().getDineroTotal()));
+                    comboGastoPerfil.setEnabled(true);
+                    for (Double g : p.getDatosF().getGastos()) {
+                        String gasto = String.valueOf(g);
+                        comboGastoPerfil.addItem(gasto);
+                    }
+                    comboCitasPerfil.addItem("NO TIENE PERMISO");
+                    labelDatosCita.setText("NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO");
+                    for (Grupo gr : grupos) {
+                        String elemento = gr.getNombreG();
+                        comboVerGrupos.addItem(elemento);
+                        comboPublicarGrupo.addItem(elemento);
+                    }
                 }
             }
         }
