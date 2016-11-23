@@ -16,4 +16,36 @@ public class DatosMedicos {
     private GregorianCalendar fechaCita;
     private String nombreDr;
     private List<String> medicamentos;
+
+    public DatosMedicos(GregorianCalendar fechaCita, String nombreDr, List<String> medicamentos) {
+        this.fechaCita = fechaCita;
+        this.nombreDr = nombreDr;
+        this.medicamentos = medicamentos;
+    }
+
+    public GregorianCalendar getFechaCita() {
+        return fechaCita;
+    }
+
+    public void setFechaCita(GregorianCalendar fechaCita) {
+        this.fechaCita = fechaCita;
+    }
+
+    public String getNombreDr() {
+        return nombreDr;
+    }
+
+    public void setNombreDr(String nombreDr) {
+        this.nombreDr = nombreDr;
+    }
+
+    public List<String> getMedicamentos() {
+        return medicamentos;
+    }
+
+    public void setMedicamentos(List<String> medicamentos) {
+        this.medicamentos = medicamentos;
+    }
+    
+    
 }
