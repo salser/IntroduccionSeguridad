@@ -5,6 +5,7 @@
  */
 package negocio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author Henry Salazar Serrano
  */
-public class Grupo {
+public class Grupo implements Serializable{
     private String nombreG;
     private String tipoGrupo;
     private List<String> publicaciones;

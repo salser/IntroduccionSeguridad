@@ -5,13 +5,14 @@
  */
 package negocio;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Henry Salazar Serrano
  */
-public class Persona {
+public class Persona implements Serializable {
     private String nombre;
     private String apellido;
     private String nomUsuario;

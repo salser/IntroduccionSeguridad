@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -31,13 +32,13 @@ import javax.crypto.spec.SecretKeySpec;
  *
  * @author Henry Salazar Serrano
  */
-public class Contrasena {
+public class Contrasena implements Serializable {
     private GregorianCalendar fechaRegistro;
     private GregorianCalendar fechaInicioContraseña;
 
-    public Contrasena(GregorianCalendar fechaRegistro, GregorianCalendar fechaInicioContraseña, String contraseniaAlpha,String usuario) throws NoSuchAlgorithmException, FileNotFoundException, IOException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
-        this.fechaRegistro = fechaRegistro;
-        this.fechaInicioContraseña = fechaInicioContraseña;
+    public Contrasena(String contraseniaAlpha,String usuario) throws NoSuchAlgorithmException, FileNotFoundException, IOException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
+        this.fechaRegistro = new GregorianCalendar();
+        this.fechaInicioContraseña = new GregorianCalendar();
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         byte [] input=contraseniaAlpha.getBytes();
         md.update(input);
@@ -63,7 +64,7 @@ public class Contrasena {
     }
 
     
-    public boolean verificar(String usuario,String contraseniaAlpha) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException
+    public static boolean verificar(String usuario,String contraseniaAlpha) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException
     {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         byte [] input=contraseniaAlpha.getBytes();

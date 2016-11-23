@@ -5,13 +5,14 @@
  */
 package negocio;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Henry Salazar Serrano
  */
-public class DatosFinancieros {
+public class DatosFinancieros implements Serializable{
     private double ingresosMensuales;
     private double dineroTotal;
     private List<Double> gastos;

@@ -6,8 +6,13 @@
 package GUI;
 
 import java.awt.event.ActionEvent;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -20,25 +25,26 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import negocio.Contrasena;
 import negocio.DatosFinancieros;
+import negocio.DatosMedicos;
 import negocio.Grupo;
 import negocio.Persona;
+import negocio.Sistema;
 
 /**
  *
  * @author MSI
  */
-public class GUISeguridad extends javax.swing.JFrame {
+public class GUISeguridad extends javax.swing.JFrame implements Serializable {
 
-    public static List<Persona> personas;
-    public static List<Grupo> grupos;
+    public static Sistema sistema;
 
     /**
      * Creates new form GUISeguridad
      */
     public GUISeguridad() {
         initComponents();
-        personas = new ArrayList<Persona>();
-        grupos = new ArrayList<Grupo>();
+        sistema = new Sistema();
+        cargarSistema();
     }
 
     /**
@@ -78,6 +84,8 @@ public class GUISeguridad extends javax.swing.JFrame {
         jtextIngresosMensualesCrear1 = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
         jtextIngresosTotalesCrear1 = new javax.swing.JTextField();
+        comoTipo = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
         jPanelPerfil = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jtextNombreApellidoPerfil = new javax.swing.JTextField();
@@ -183,10 +191,19 @@ public class GUISeguridad extends javax.swing.JFrame {
         jLabel29.setText("Apellido");
 
         btnCrearUsuario1.setText("Crear Usuario");
+        btnCrearUsuario1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearUsuario1ActionPerformed(evt);
+            }
+        });
 
         jLabel30.setText("Ingresos Mensuales");
 
         jLabel31.setText("Ingresos Totales");
+
+        comoTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Medico", "Banquero", "Usuario"}));
+
+        jLabel3.setText("Rol");
 
         javax.swing.GroupLayout jpanelCrearUsuLayout = new javax.swing.GroupLayout(jpanelCrearUsu);
         jpanelCrearUsu.setLayout(jpanelCrearUsuLayout);
@@ -207,17 +224,21 @@ public class GUISeguridad extends javax.swing.JFrame {
                             .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(contraRepitaCrear1))
                         .addGap(87, 87, 87)
-                        .addGroup(jpanelCrearUsuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jtextNombreCrear)
-                            .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                            .addComponent(jtextIngresosMensualesCrear1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jpanelCrearUsuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtextApellidoCrear)
-                            .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                            .addComponent(jtextIngresosTotalesCrear1))
+                        .addGroup(jpanelCrearUsuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpanelCrearUsuLayout.createSequentialGroup()
+                                .addGroup(jpanelCrearUsuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jtextNombreCrear)
+                                    .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                                    .addComponent(jtextIngresosMensualesCrear1)
+                                    .addComponent(comoTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jpanelCrearUsuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtextApellidoCrear)
+                                    .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                                    .addComponent(jtextIngresosTotalesCrear1)))
+                            .addComponent(jLabel3))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -245,9 +266,13 @@ public class GUISeguridad extends javax.swing.JFrame {
                     .addComponent(jtextIngresosMensualesCrear1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtextIngresosTotalesCrear1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel26)
+                .addGroup(jpanelCrearUsuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contraCrear1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jpanelCrearUsuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(contraCrear1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel27)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -265,15 +290,15 @@ public class GUISeguridad extends javax.swing.JFrame {
             jpanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpanelHomeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPaneHome)
-                .addGap(328, 328, 328))
+                .addComponent(jTabbedPaneHome, javax.swing.GroupLayout.DEFAULT_SIZE, 963, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jpanelHomeLayout.setVerticalGroup(
             jpanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpanelHomeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPaneHome, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
         jTabSegu.addTab("Home", jpanelHome);
@@ -324,7 +349,7 @@ public class GUISeguridad extends javax.swing.JFrame {
                 .addGroup(jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanelPerfilLayout.createSequentialGroup()
                         .addComponent(labelDatosCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap(907, Short.MAX_VALUE))
+                        .addContainerGap(922, Short.MAX_VALUE))
                     .addGroup(jPanelPerfilLayout.createSequentialGroup()
                         .addGroup(jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(comboCitasPerfil, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -347,7 +372,7 @@ public class GUISeguridad extends javax.swing.JFrame {
                         .addGroup(jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboGastoPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(461, Short.MAX_VALUE))))
+                        .addContainerGap(455, Short.MAX_VALUE))))
         );
         jPanelPerfilLayout.setVerticalGroup(
             jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -380,7 +405,7 @@ public class GUISeguridad extends javax.swing.JFrame {
                 .addComponent(comboCitasPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(labelDatosCita, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addContainerGap(232, Short.MAX_VALUE))
         );
 
         jTabSegu.addTab("Perfil", jPanelPerfil);
@@ -440,7 +465,7 @@ public class GUISeguridad extends javax.swing.JFrame {
                             .addComponent(jtextTipoGrupoCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(52, 52, 52)
                         .addComponent(btnCrearGrupo)))
-                .addGap(0, 349, Short.MAX_VALUE))
+                .addGap(0, 342, Short.MAX_VALUE))
             .addGroup(jPanelGruposLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -454,7 +479,7 @@ public class GUISeguridad extends javax.swing.JFrame {
                                 .addGap(27, 27, 27)
                                 .addComponent(btnMostrarGrupo))
                             .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 675, Short.MAX_VALUE))
+                        .addGap(0, 685, Short.MAX_VALUE))
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -482,7 +507,7 @@ public class GUISeguridad extends javax.swing.JFrame {
                         .addComponent(comboPublicarGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
                         .addComponent(btnPublicar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel18)
@@ -504,11 +529,17 @@ public class GUISeguridad extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabSegu)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabSegu)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabSegu)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabSegu, javax.swing.GroupLayout.PREFERRED_SIZE, 717, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -542,8 +573,32 @@ public class GUISeguridad extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldEmailFocusLost
 
     private void jbtnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLogInActionPerformed
-        entroUsuario(evt);
+        try {
+            entroUsuario(evt);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchPaddingException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeyException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidAlgorithmParameterException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalBlockSizeException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (BadPaddingException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbtnLogInActionPerformed
+
+    private void btnCrearUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuario1ActionPerformed
+        try {
+            crearUsuario(evt);
+        } catch (IOException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCrearUsuario1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -575,54 +630,16 @@ public class GUISeguridad extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUISeguridad().setVisible(true);
-                Persona p = null;
-                try {
-                    p = new Persona("Henry", "Salazar", new Contrasena(null, null, "lol", "persona"), "usuario", "lol", new DatosFinancieros(0, 0, null), null, "salser");
-                } catch (NoSuchAlgorithmException ex) {
-                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (NoSuchPaddingException ex) {
-                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InvalidKeyException ex) {
-                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InvalidAlgorithmParameterException ex) {
-                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IllegalBlockSizeException ex) {
-                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (BadPaddingException ex) {
-                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                personas.add(p);
                 List<Double> gastos = new ArrayList<Double>();
-                gastos.add((double)25000);
-                gastos.add((double)35700.230);
-                gastos.add((double)53250.35);
-                Persona p2 = null;
-                try {
-                    p2 = new Persona("Harold", "Salazar", new Contrasena(null, null, "lol","persona"), "banquero", "lollol", new DatosFinancieros((double)10000, (double)1536980, gastos), null, "salser2");
-                } catch (NoSuchAlgorithmException ex) {
-                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (NoSuchPaddingException ex) {
-                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InvalidKeyException ex) {
-                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InvalidAlgorithmParameterException ex) {
-                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IllegalBlockSizeException ex) {
-                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (BadPaddingException ex) {
-                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                personas.add(p2);
+                gastos.add((double) 25000);
+                gastos.add((double) 35700.230);
+                gastos.add((double) 53250.35);
                 Grupo g = new Grupo("Jazz", "InteresJazz");
                 Grupo g1 = new Grupo("Rock", "Rockeros");
                 Grupo g2 = new Grupo("Rubick", "Rubicks Cubes");
-                grupos.add(g);
-                grupos.add(g1);
-                grupos.add(g2);
+                sistema.getGrupos().add(g);
+                sistema.getGrupos().add(g1);
+                sistema.getGrupos().add(g2);
             }
         });
     }
@@ -636,6 +653,7 @@ public class GUISeguridad extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboGastoPerfil;
     private javax.swing.JComboBox<String> comboPublicarGrupo;
     private javax.swing.JComboBox<String> comboVerGrupos;
+    private javax.swing.JComboBox<String> comoTipo;
     private javax.swing.JPasswordField contraCrear1;
     private javax.swing.JPasswordField contraLogIn;
     private javax.swing.JPasswordField contraRepitaCrear1;
@@ -660,6 +678,7 @@ public class GUISeguridad extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel5;
@@ -692,12 +711,19 @@ public class GUISeguridad extends javax.swing.JFrame {
     private javax.swing.JLabel labelPublicacionesGrupo;
     // End of variables declaration//GEN-END:variables
 
-    private void entroUsuario(ActionEvent evt) {
+    private void entroUsuario(ActionEvent evt) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
         String email = jTextFieldEmail.getText();
         String contra = contraLogIn.getText();
-        for (Persona p : personas) {
-            if (p.getCorreo().equals(email)) {
-                if (p.getTipo().equals("usuario")) {
+        boolean valido = Contrasena.verificar(email, contra);
+        if (valido) {
+            Persona p = null;
+            for (Persona pe : sistema.getPersonas()) {
+                if (pe.getCorreo().equals(email)) {
+                    p = pe;
+                }
+            }
+            if (p != null) {
+                if (p.getTipo().equals("Usuario")) {
                     jTextFieldEmail.setText(email);
                     jTextFieldEmail.setEnabled(false);
                     contraLogIn.setText(contra);
@@ -710,12 +736,12 @@ public class GUISeguridad extends javax.swing.JFrame {
                     comboGastoPerfil.addItem("NO TIENE PERMISO");
                     comboCitasPerfil.addItem("NO TIENE PERMISO");
                     labelDatosCita.setText("NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO");
-                    for (Grupo gr : grupos) {
+                    for (Grupo gr : sistema.getGrupos()) {
                         String elemento = gr.getNombreG();
                         comboVerGrupos.addItem(elemento);
                         comboPublicarGrupo.addItem(elemento);
                     }
-                }else if(p.getTipo().equals("banquero")){
+                } else if (p.getTipo().equals("Banquero")) {
                     jTextFieldEmail.setText(email);
                     jTextFieldEmail.setEnabled(false);
                     contraLogIn.setText(contra);
@@ -732,7 +758,7 @@ public class GUISeguridad extends javax.swing.JFrame {
                     }
                     comboCitasPerfil.addItem("NO TIENE PERMISO");
                     labelDatosCita.setText("NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO");
-                    for (Grupo gr : grupos) {
+                    for (Grupo gr : sistema.getGrupos()) {
                         String elemento = gr.getNombreG();
                         comboVerGrupos.addItem(elemento);
                         comboPublicarGrupo.addItem(elemento);
@@ -741,4 +767,70 @@ public class GUISeguridad extends javax.swing.JFrame {
             }
         }
     }
+
+    private void crearUsuario(ActionEvent evt) throws IOException, FileNotFoundException, ClassNotFoundException {
+        String correo = jtextFieldCorreoCrear.getText();
+        String apellido = jtextApellidoCrear.getText();
+        String nombre = jtextNombreCrear.getText();
+        double ingMensu = Double.parseDouble(jtextIngresosMensualesCrear1.getText());
+        double ingTot = Double.parseDouble(jtextIngresosTotalesCrear1.getText());
+        String nomUsu = jtextFieldNomUsu.getText();
+        String contra = contraCrear1.getText();
+        String repite = contraRepitaCrear1.getText();
+        if (contra.equals(repite)) {
+            Contrasena c = null;
+            try {
+                c = new Contrasena(contra, correo);
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NoSuchPaddingException ex) {
+                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidKeyException ex) {
+                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidAlgorithmParameterException ex) {
+                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalBlockSizeException ex) {
+                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (BadPaddingException ex) {
+                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            sistema.getPersonas().add(new Persona(nombre, apellido, c, (String) comoTipo.getSelectedItem(), correo, new DatosFinancieros(ingMensu, ingTot, null), null, nomUsu));
+            guardarSistema();
+        }
+    }
+
+    private void guardarSistema() throws FileNotFoundException, IOException, ClassNotFoundException {
+        try {
+            FileOutputStream fos = new FileOutputStream("fichero.dat");
+            FileInputStream fis = new FileInputStream("fichero.dat");
+            ObjectOutputStream out = new ObjectOutputStream(fos);
+            ObjectInputStream in = new ObjectInputStream(fis);
+            Sistema o1 = sistema;
+
+            // Escribir el objeto en el fichero
+            out.writeObject(o1);
+        }catch (FileNotFoundException ex)
+        {
+            System.out.println(ex);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+private void cargarSistema(){
+    try {
+            
+            FileInputStream fis = new FileInputStream("fichero.dat");
+            ObjectInputStream in = new ObjectInputStream(fis);
+            sistema = (Sistema) in.readObject();
+            in.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        } 
+    }
 }
+
+

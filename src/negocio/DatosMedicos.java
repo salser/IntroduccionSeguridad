@@ -5,6 +5,7 @@
  */
 package negocio;
 
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author Henry Salazar Serrano
  */
-public class DatosMedicos {
+public class DatosMedicos implements Serializable {
     private GregorianCalendar fechaCita;
     private String nombreDr;
     private List<String> medicamentos;

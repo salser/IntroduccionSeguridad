@@ -46,12 +46,20 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jTabSegu" alignment="0" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jTabSegu" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jTabSegu" alignment="0" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jTabSegu" min="-2" pref="717" max="-2" attributes="0"/>
+                  <EmptySpace pref="36" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -77,8 +85,8 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTabbedPaneHome" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="328" max="-2" attributes="0"/>
+                          <Component id="jTabbedPaneHome" pref="963" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -87,7 +95,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jTabbedPaneHome" min="-2" pref="551" max="-2" attributes="0"/>
-                          <EmptySpace pref="174" max="32767" attributes="0"/>
+                          <EmptySpace pref="127" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -200,18 +208,24 @@
                                               <Component id="contraRepitaCrear1" alignment="0" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jLabel28" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jtextNombreCrear" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jLabel30" alignment="0" pref="169" max="32767" attributes="0"/>
-                                              <Component id="jtextIngresosMensualesCrear1" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jLabel29" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
-                                              <Component id="jtextApellidoCrear" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jLabel31" alignment="0" pref="169" max="32767" attributes="0"/>
-                                              <Component id="jtextIngresosTotalesCrear1" alignment="0" max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="jLabel28" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="jtextNombreCrear" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="jLabel30" alignment="0" pref="169" max="32767" attributes="0"/>
+                                                      <Component id="jtextIngresosMensualesCrear1" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="comoTipo" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="jLabel29" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
+                                                      <Component id="jtextApellidoCrear" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="jLabel31" alignment="0" pref="169" max="32767" attributes="0"/>
+                                                      <Component id="jtextIngresosTotalesCrear1" alignment="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
@@ -248,9 +262,15 @@
                                       <Component id="jtextIngresosTotalesCrear1" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel26" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="contraCrear1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="contraCrear1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="comoTipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -309,6 +329,9 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Crear Usuario"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrearUsuario1ActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel30">
                           <Properties>
@@ -323,6 +346,21 @@
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="jtextIngresosTotalesCrear1">
+                        </Component>
+                        <Component class="javax.swing.JComboBox" name="comoTipo">
+                          <Properties>
+                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Medico&quot;, &quot;Banquero&quot;, &quot;Usuario&quot;})" type="code"/>
+                            </Property>
+                          </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                          </AuxValues>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel3">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Rol"/>
+                          </Properties>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -350,7 +388,7 @@
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="labelDatosCita" max="32767" attributes="0"/>
-                                  <EmptySpace pref="907" max="32767" attributes="0"/>
+                                  <EmptySpace pref="922" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -379,7 +417,7 @@
                                       <Component id="jLabel13" min="-2" pref="144" max="-2" attributes="0"/>
                                       <Component id="comboGastoPerfil" min="-2" pref="187" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="461" max="32767" attributes="0"/>
+                                  <EmptySpace pref="455" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -420,7 +458,7 @@
                           <Component id="comboCitasPerfil" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="labelDatosCita" min="-2" pref="218" max="-2" attributes="0"/>
-                          <EmptySpace pref="260" max="32767" attributes="0"/>
+                          <EmptySpace pref="232" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -567,7 +605,7 @@
                                   <Component id="btnCrearGrupo" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="349" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="342" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
@@ -585,7 +623,7 @@
                                       </Group>
                                       <Component id="jLabel19" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="675" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="685" max="32767" attributes="0"/>
                               </Group>
                               <Component id="jSeparator2" alignment="1" max="32767" attributes="0"/>
                           </Group>
@@ -621,7 +659,7 @@
                                   <Component id="btnPublicar" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="47" max="32767" attributes="0"/>
+                          <EmptySpace pref="13" max="32767" attributes="0"/>
                           <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
