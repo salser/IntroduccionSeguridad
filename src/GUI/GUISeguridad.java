@@ -6,8 +6,18 @@
 package GUI;
 
 import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import negocio.Contrasena;
 import negocio.DatosFinancieros;
 import negocio.Grupo;
@@ -565,13 +575,47 @@ public class GUISeguridad extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUISeguridad().setVisible(true);
-                Persona p = new Persona("Henry", "Salazar", new Contrasena(null, null, "lol"), "usuario", "lol", new DatosFinancieros(0, 0, null), null, "salser");
+                Persona p = null;
+                try {
+                    p = new Persona("Henry", "Salazar", new Contrasena(null, null, "lol", "persona"), "usuario", "lol", new DatosFinancieros(0, 0, null), null, "salser");
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NoSuchPaddingException ex) {
+                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InvalidKeyException ex) {
+                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InvalidAlgorithmParameterException ex) {
+                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalBlockSizeException ex) {
+                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (BadPaddingException ex) {
+                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 personas.add(p);
                 List<Double> gastos = new ArrayList<Double>();
                 gastos.add((double)25000);
                 gastos.add((double)35700.230);
                 gastos.add((double)53250.35);
-                Persona p2 = new Persona("Harold", "Salazar", new Contrasena(null, null, "lol"), "banquero", "lollol", new DatosFinancieros((double)10000, (double)1536980, gastos), null, "salser2");
+                Persona p2 = null;
+                try {
+                    p2 = new Persona("Harold", "Salazar", new Contrasena(null, null, "lol","persona"), "banquero", "lollol", new DatosFinancieros((double)10000, (double)1536980, gastos), null, "salser2");
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NoSuchPaddingException ex) {
+                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InvalidKeyException ex) {
+                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InvalidAlgorithmParameterException ex) {
+                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalBlockSizeException ex) {
+                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (BadPaddingException ex) {
+                    Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 personas.add(p2);
                 Grupo g = new Grupo("Jazz", "InteresJazz");
                 Grupo g1 = new Grupo("Rock", "Rockeros");
@@ -652,7 +696,7 @@ public class GUISeguridad extends javax.swing.JFrame {
         String email = jTextFieldEmail.getText();
         String contra = contraLogIn.getText();
         for (Persona p : personas) {
-            if (p.getCorreo().equals(email) && p.getContrasenia().getContraseniaAlpha().equals(contra)) {
+            if (p.getCorreo().equals(email)) {
                 if (p.getTipo().equals("usuario")) {
                     jTextFieldEmail.setText(email);
                     jTextFieldEmail.setEnabled(false);
