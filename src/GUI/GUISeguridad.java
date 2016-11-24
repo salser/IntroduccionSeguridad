@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,11 +24,15 @@ import java.util.logging.Logger;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
+import javax.swing.text.Element;
 import negocio.Contrasena;
 import negocio.DatosFinancieros;
 import negocio.DatosMedicos;
 import negocio.Grupo;
 import negocio.Persona;
+import negocio.Publicacion;
 import negocio.Sistema;
 
 /**
@@ -106,7 +111,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
         jLabel18 = new javax.swing.JLabel();
         comboVerGrupos = new javax.swing.JComboBox<>();
         labelPublicacionesGrupo = new javax.swing.JLabel();
-        btnMostrarGrupo = new javax.swing.JButton();
+        btnMostrarPublicaciones = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -118,8 +123,23 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
         jLabel22 = new javax.swing.JLabel();
         comboPublicarGrupo = new javax.swing.JComboBox<>();
         jLabel23 = new javax.swing.JLabel();
-        jtextPublicacion = new javax.swing.JTextField();
+        jtextNuevaPublicacion = new javax.swing.JTextField();
         btnPublicar = new javax.swing.JButton();
+        jTextFieldNuevoTitulo = new javax.swing.JTextField();
+        jComboBoxListPublicaciones = new javax.swing.JComboBox<>();
+        jButtonSolicitar = new javax.swing.JButton();
+        jButtonActulizarGruposDisponibles = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextAreaPublicacion = new javax.swing.JTextArea();
+        jPanelSolicitudes = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1Solicitudes = new javax.swing.JList<>();
+        jButtonAceptarSolicitud = new javax.swing.JButton();
+        jButtonRechazarSolicitud = new javax.swing.JButton();
+        jToggleButtonActualizarSolicitudes = new javax.swing.JToggleButton();
+        jComboBoxGrupoSolicitud = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -290,7 +310,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
             jpanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpanelHomeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPaneHome, javax.swing.GroupLayout.DEFAULT_SIZE, 963, Short.MAX_VALUE)
+                .addComponent(jTabbedPaneHome, javax.swing.GroupLayout.DEFAULT_SIZE, 1099, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jpanelHomeLayout.setVerticalGroup(
@@ -298,7 +318,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
             .addGroup(jpanelHomeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPaneHome, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         jTabSegu.addTab("Home", jpanelHome);
@@ -349,7 +369,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                 .addGroup(jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanelPerfilLayout.createSequentialGroup()
                         .addComponent(labelDatosCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap(922, Short.MAX_VALUE))
+                        .addContainerGap(1038, Short.MAX_VALUE))
                     .addGroup(jPanelPerfilLayout.createSequentialGroup()
                         .addGroup(jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(comboCitasPerfil, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -372,7 +392,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                         .addGroup(jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboGastoPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(455, Short.MAX_VALUE))))
+                        .addContainerGap(587, Short.MAX_VALUE))))
         );
         jPanelPerfilLayout.setVerticalGroup(
             jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -405,7 +425,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                 .addComponent(comboCitasPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(labelDatosCita, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(232, Short.MAX_VALUE))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
 
         jTabSegu.addTab("Perfil", jPanelPerfil);
@@ -414,28 +434,91 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
         jLabel18.setText("Crear Grupo");
 
         comboVerGrupos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
+        comboVerGrupos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboVerGruposActionPerformed(evt);
+            }
+        });
 
         labelPublicacionesGrupo.setText("Publicación grupo seleccionado");
 
-        btnMostrarGrupo.setText("Mostrar Grupo");
+        btnMostrarPublicaciones.setText("Mostrar Publicaciones");
+        btnMostrarPublicaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarPublicacionesActionPerformed(evt);
+            }
+        });
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel19.setText("Nombre Grupo");
 
         jLabel20.setText("Nombre");
 
+        jtextNombreGrupoCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtextNombreGrupoCrearActionPerformed(evt);
+            }
+        });
+
         jLabel21.setText("Tipo");
 
         btnCrearGrupo.setText("Crear Grupo");
+        btnCrearGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearGrupoActionPerformed(evt);
+            }
+        });
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel22.setText("Publicar en Grupo");
 
         comboPublicarGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
+        comboPublicarGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboPublicarGrupoActionPerformed(evt);
+            }
+        });
 
         jLabel23.setText("Publicación");
 
         btnPublicar.setText("Publicar");
+        btnPublicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPublicarActionPerformed(evt);
+            }
+        });
+
+        jTextFieldNuevoTitulo.setText("inserte titulo");
+        jTextFieldNuevoTitulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNuevoTituloActionPerformed(evt);
+            }
+        });
+
+        jComboBoxListPublicaciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxListPublicaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxListPublicacionesActionPerformed(evt);
+            }
+        });
+
+        jButtonSolicitar.setText("Solicitar ingreso");
+        jButtonSolicitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSolicitarActionPerformed(evt);
+            }
+        });
+
+        jButtonActulizarGruposDisponibles.setText("Actualizar");
+        jButtonActulizarGruposDisponibles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonActulizarGruposDisponiblesActionPerformed(evt);
+            }
+        });
+
+        jTextAreaPublicacion.setColumns(20);
+        jTextAreaPublicacion.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaPublicacion);
 
         javax.swing.GroupLayout jPanelGruposLayout = new javax.swing.GroupLayout(jPanelGrupos);
         jPanelGrupos.setLayout(jPanelGruposLayout);
@@ -449,11 +532,15 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                             .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnPublicar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(comboPublicarGrupo, javax.swing.GroupLayout.Alignment.LEADING, 0, 150, Short.MAX_VALUE)))
+                                .addComponent(comboPublicarGrupo, javax.swing.GroupLayout.Alignment.LEADING, 0, 150, Short.MAX_VALUE)
+                                .addComponent(jButtonActulizarGruposDisponibles, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtextPublicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jtextNuevaPublicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanelGruposLayout.createSequentialGroup()
+                                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldNuevoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanelGruposLayout.createSequentialGroup()
                         .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jtextNombreGrupoCrear, javax.swing.GroupLayout.Alignment.LEADING)
@@ -465,22 +552,32 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                             .addComponent(jtextTipoGrupoCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(52, 52, 52)
                         .addComponent(btnCrearGrupo)))
-                .addGap(0, 342, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanelGruposLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelGruposLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(labelPublicacionesGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1099, Short.MAX_VALUE)
                     .addGroup(jPanelGruposLayout.createSequentialGroup()
                         .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanelGruposLayout.createSequentialGroup()
-                                .addComponent(comboVerGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(btnMostrarGrupo))
-                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 685, Short.MAX_VALUE))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanelGruposLayout.createSequentialGroup()
+                                        .addComponent(labelPublicacionesGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButtonSolicitar, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanelGruposLayout.createSequentialGroup()
+                                        .addComponent(comboVerGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(100, 100, 100)
+                                        .addComponent(btnMostrarPublicaciones)))
+                                .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanelGruposLayout.createSequentialGroup()
+                                        .addGap(77, 77, 77)
+                                        .addComponent(jComboBoxListPublicaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanelGruposLayout.createSequentialGroup()
+                                        .addGap(49, 49, 49)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelGruposLayout.setVerticalGroup(
@@ -491,39 +588,151 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboVerGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMostrarGrupo))
+                    .addComponent(btnMostrarPublicaciones)
+                    .addComponent(jComboBoxListPublicaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelPublicacionesGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22)
-                    .addComponent(jLabel23))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtextPublicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelGruposLayout.createSequentialGroup()
-                        .addComponent(comboPublicarGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(btnPublicar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(jLabel21))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtextNombreGrupoCrear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtextTipoGrupoCrear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCrearGrupo))
-                .addGap(117, 117, 117))
+                        .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelPublicacionesGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(2, 2, 2)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel23)
+                            .addComponent(jTextFieldNuevoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelGruposLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboPublicarGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, Short.MAX_VALUE))
+                            .addGroup(jPanelGruposLayout.createSequentialGroup()
+                                .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanelGruposLayout.createSequentialGroup()
+                                        .addGap(44, 44, 44)
+                                        .addComponent(jButtonActulizarGruposDisponibles)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnPublicar))
+                                    .addGroup(jPanelGruposLayout.createSequentialGroup()
+                                        .addGap(22, 22, 22)
+                                        .addComponent(jtextNuevaPublicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel20)
+                                    .addComponent(jLabel21))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jtextNombreGrupoCrear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtextTipoGrupoCrear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnCrearGrupo))
+                                .addGap(117, 117, 117))))
+                    .addGroup(jPanelGruposLayout.createSequentialGroup()
+                        .addComponent(jButtonSolicitar)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         jTabSegu.addTab("Grupos", jPanelGrupos);
+
+        jList1Solicitudes.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jList1Solicitudes.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jList1SolicitudesAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jScrollPane1.setViewportView(jList1Solicitudes);
+
+        jButtonAceptarSolicitud.setText("Aceptar");
+        jButtonAceptarSolicitud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAceptarSolicitudActionPerformed(evt);
+            }
+        });
+
+        jButtonRechazarSolicitud.setText("Rechazar");
+        jButtonRechazarSolicitud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRechazarSolicitudActionPerformed(evt);
+            }
+        });
+
+        jToggleButtonActualizarSolicitudes.setText("Actualizar");
+        jToggleButtonActualizarSolicitudes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonActualizarSolicitudesActionPerformed(evt);
+            }
+        });
+
+        jComboBoxGrupoSolicitud.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxGrupoSolicitud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxGrupoSolicitudActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Grupo");
+
+        jLabel6.setText("Solicitudes");
+
+        javax.swing.GroupLayout jPanelSolicitudesLayout = new javax.swing.GroupLayout(jPanelSolicitudes);
+        jPanelSolicitudes.setLayout(jPanelSolicitudesLayout);
+        jPanelSolicitudesLayout.setHorizontalGroup(
+            jPanelSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSolicitudesLayout.createSequentialGroup()
+                .addContainerGap(61, Short.MAX_VALUE)
+                .addGroup(jPanelSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel4))
+                .addGap(45, 45, 45)
+                .addGroup(jPanelSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxGrupoSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelSolicitudesLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53)
+                        .addGroup(jPanelSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonAceptarSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jToggleButtonActualizarSolicitudes)
+                            .addComponent(jButtonRechazarSolicitud))))
+                .addGap(167, 167, 167))
+        );
+        jPanelSolicitudesLayout.setVerticalGroup(
+            jPanelSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelSolicitudesLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(jPanelSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jComboBoxGrupoSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelSolicitudesLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanelSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanelSolicitudesLayout.createSequentialGroup()
+                                .addComponent(jToggleButtonActualizarSolicitudes)
+                                .addGap(29, 29, 29)
+                                .addComponent(jButtonAceptarSolicitud)
+                                .addGap(26, 26, 26)
+                                .addComponent(jButtonRechazarSolicitud))))
+                    .addGroup(jPanelSolicitudesLayout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(jLabel6)))
+                .addContainerGap(308, Short.MAX_VALUE))
+        );
+
+        jTabSegu.addTab("Solicitudes", jPanelSolicitudes);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -538,8 +747,8 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabSegu, javax.swing.GroupLayout.PREFERRED_SIZE, 717, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addComponent(jTabSegu, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -600,6 +809,242 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
         }
     }//GEN-LAST:event_btnCrearUsuario1ActionPerformed
 
+    private void btnCrearGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearGrupoActionPerformed
+        // TODO add your handling code here:
+        Persona p = null;
+        for (Persona pe : sistema.getPersonas()) {
+            if (pe.getCorreo().equals(jTextFieldEmail.getText())) {
+                p = pe;
+            }
+        }
+        Grupo gr = new Grupo(jtextNombreGrupoCrear.getText(), jtextTipoGrupoCrear.getText(), p);
+        sistema.getGrupos().add(gr);
+        String elemento = jtextNombreGrupoCrear.getText();
+        comboVerGrupos.addItem(elemento);
+        comboPublicarGrupo.addItem(elemento);
+        try {
+            guardarSistema();
+            //jtextPublicacion.updateUI();
+        } catch (IOException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnCrearGrupoActionPerformed
+
+    private void jtextNombreGrupoCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtextNombreGrupoCrearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtextNombreGrupoCrearActionPerformed
+
+    private void jButtonAceptarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarSolicitudActionPerformed
+        // TODO add your handling code here
+        for (Grupo g : sistema.getGrupos()) {
+            if (g.getNombreG().equals(jComboBoxGrupoSolicitud.getSelectedItem())) {
+                for (Persona p : sistema.getPersonas()) {
+                    if (p.getCorreo().equals(jList1Solicitudes.getSelectedValue())) {
+                        g.getUsuarios().add(p);
+                        DefaultListModel<String> model = (DefaultListModel<String>) jList1Solicitudes.getModel();
+                        model.remove(jList1Solicitudes.getSelectedIndex());
+                        jList1Solicitudes.setModel(model);
+                        jList1Solicitudes.updateUI();
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jButtonAceptarSolicitudActionPerformed
+
+    private void comboVerGruposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboVerGruposActionPerformed
+        // TODO add your handling code here:
+        if (comboVerGrupos.isEnabled()) {
+            String grupo = comboVerGrupos.getSelectedItem().toString();
+            for (Grupo gr : sistema.getGrupos()) {
+                if (gr.getNombreG().equals(grupo)) {
+                    labelPublicacionesGrupo.setText(gr.getTipoGrupo());
+                }
+            }
+        }
+    }//GEN-LAST:event_comboVerGruposActionPerformed
+
+    private void comboPublicarGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPublicarGrupoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboPublicarGrupoActionPerformed
+
+    private void btnPublicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPublicarActionPerformed
+        // TODO add your handling code here:
+        Persona p = null;
+        for (Persona pe : sistema.getPersonas()) {
+            if (pe.getCorreo().equals(jTextFieldEmail)) {
+                p = pe;
+            }
+        }
+        try {
+            Publicacion pu = new Publicacion(jTextFieldNuevoTitulo.getText(), jtextNuevaPublicacion.getText(), p);
+            Grupo g = null;
+            for (Grupo gr : sistema.getGrupos()) {
+                if (comboPublicarGrupo.getSelectedItem().toString().equals(gr.getNombreG())) {
+                    gr.getPublicaciones().add(pu);
+                }
+            }
+            guardarSistema();
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchPaddingException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalBlockSizeException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (BadPaddingException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeyException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidAlgorithmParameterException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnPublicarActionPerformed
+
+    private void jTextFieldNuevoTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNuevoTituloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNuevoTituloActionPerformed
+
+    private void btnMostrarPublicacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarPublicacionesActionPerformed
+        // TODO add your handling code here:
+        jComboBoxListPublicaciones.removeAllItems();
+        for (Grupo g : sistema.getGrupos()) {
+            if (comboVerGrupos.getSelectedItem().toString().equals(g.getNombreG())) {
+                for (Publicacion p : g.getPublicaciones()) {
+                    jComboBoxListPublicaciones.addItem(p.getTitulo());
+                }
+
+            }
+        }
+        jComboBoxListPublicaciones.updateUI();
+    }//GEN-LAST:event_btnMostrarPublicacionesActionPerformed
+
+    private void jButtonSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSolicitarActionPerformed
+        // TODO add your handling code here:
+        Persona p = null;
+        for (Persona pe : sistema.getPersonas()) {
+            if (pe.getCorreo().equals(jTextFieldEmail.getText())) {
+                p = pe;
+            }
+        }
+        for (Grupo g : sistema.getGrupos()) {
+            if (comboVerGrupos.getSelectedItem().toString().equals(g.getNombreG())) {
+                g.getSolicitudes().add(p);
+            }
+        }
+        try {
+            guardarSistema();
+        } catch (IOException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonSolicitarActionPerformed
+
+    private void jToggleButtonActualizarSolicitudesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonActualizarSolicitudesActionPerformed
+        // TODO add your handling code here:
+        jList1Solicitudes.updateUI();
+        jComboBoxGrupoSolicitud.removeAllItems();
+        Persona p = null;
+        for (Persona pe : sistema.getPersonas()) {
+            if (pe.getCorreo().equals(jTextFieldEmail.getText())) {
+                p = pe;
+            }
+        }
+        DefaultListModel<String> model = new DefaultListModel<>();
+
+        for (Grupo g : sistema.getGrupos()) {
+
+            if (g.getAdmin().getCorreo().equals(jTextFieldEmail.getText())) {
+                jComboBoxGrupoSolicitud.addItem(g.getNombreG());
+
+            }
+        }
+        if (jComboBoxGrupoSolicitud.isEnabled()) {
+            for (Grupo g : sistema.getGrupos()) {
+                if (g.getNombreG().equals(jComboBoxGrupoSolicitud.getSelectedItem())) {
+                    if (g.getAdmin().getCorreo().equals(jTextFieldEmail.getText())) {
+
+                        for (Persona per : g.getSolicitudes()) {
+                            model.addElement(per.getCorreo());
+                        }
+                        jList1Solicitudes.setModel(model);
+                        g.getSolicitudes().remove(p);
+                    }
+
+                }
+            }
+        }
+    }//GEN-LAST:event_jToggleButtonActualizarSolicitudesActionPerformed
+
+    private void jList1SolicitudesAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jList1SolicitudesAncestorAdded
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jList1SolicitudesAncestorAdded
+
+    private void jComboBoxGrupoSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxGrupoSolicitudActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxGrupoSolicitudActionPerformed
+
+    private void jButtonRechazarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRechazarSolicitudActionPerformed
+        // TODO add your handling code here:
+        for (Grupo g : sistema.getGrupos()) {
+            if (g.getNombreG().equals(jComboBoxGrupoSolicitud.getSelectedItem())) {
+                for (Persona p : sistema.getPersonas()) {
+                    if (p.getCorreo().equals(jList1Solicitudes.getSelectedValue())) {
+
+                        DefaultListModel<String> model = (DefaultListModel<String>) jList1Solicitudes.getModel();
+                        model.remove(jList1Solicitudes.getSelectedIndex());
+                        jList1Solicitudes.setModel(model);
+                        jList1Solicitudes.updateUI();
+                        g.getSolicitudes().remove(p);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jButtonRechazarSolicitudActionPerformed
+
+    private void jButtonActulizarGruposDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActulizarGruposDisponiblesActionPerformed
+        // TODO add your handling code here:
+        comboPublicarGrupo.removeAllItems();
+        Persona p = null;
+        for (Persona pe : sistema.getPersonas()) {
+            if (pe.getCorreo().equals(jTextFieldEmail.getText())) {
+                p = pe;
+            }
+        }
+        for (Grupo gr : sistema.getGrupos()) {
+            if (gr.getUsuarios().contains(p) || gr.getAdmin().getCorreo().equalsIgnoreCase(p.getCorreo())) {
+                String elemento = gr.getNombreG();
+                comboPublicarGrupo.addItem(elemento);
+            }
+
+        }
+    }//GEN-LAST:event_jButtonActulizarGruposDisponiblesActionPerformed
+
+    private void jComboBoxListPublicacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxListPublicacionesActionPerformed
+        // TODO add your handling code here:
+        if (jComboBoxListPublicaciones.isEnabled()) {
+            for (Grupo gr : sistema.getGrupos()) {
+                for(Publicacion pu: gr.getPublicaciones()){
+                    if(pu.getTitulo().equals(jComboBoxListPublicaciones.getSelectedItem())){
+                        try {
+                            jTextAreaPublicacion.setText(pu.getTexto());
+                        } catch (Exception ex) {
+                            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jComboBoxListPublicacionesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -614,16 +1059,24 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUISeguridad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUISeguridad.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUISeguridad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUISeguridad.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUISeguridad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUISeguridad.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUISeguridad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUISeguridad.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         /* Create and display the form */
@@ -634,12 +1087,6 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                 gastos.add((double) 25000);
                 gastos.add((double) 35700.230);
                 gastos.add((double) 53250.35);
-                Grupo g = new Grupo("Jazz", "InteresJazz");
-                Grupo g1 = new Grupo("Rock", "Rockeros");
-                Grupo g2 = new Grupo("Rubick", "Rubicks Cubes");
-                sistema.getGrupos().add(g);
-                sistema.getGrupos().add(g1);
-                sistema.getGrupos().add(g2);
             }
         });
     }
@@ -647,7 +1094,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearGrupo;
     private javax.swing.JButton btnCrearUsuario1;
-    private javax.swing.JButton btnMostrarGrupo;
+    private javax.swing.JButton btnMostrarPublicaciones;
     private javax.swing.JButton btnPublicar;
     private javax.swing.JComboBox<String> comboCitasPerfil;
     private javax.swing.JComboBox<String> comboGastoPerfil;
@@ -657,6 +1104,12 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
     private javax.swing.JPasswordField contraCrear1;
     private javax.swing.JPasswordField contraLogIn;
     private javax.swing.JPasswordField contraRepitaCrear1;
+    private javax.swing.JButton jButtonAceptarSolicitud;
+    private javax.swing.JButton jButtonActulizarGruposDisponibles;
+    private javax.swing.JButton jButtonRechazarSolicitud;
+    private javax.swing.JButton jButtonSolicitar;
+    private javax.swing.JComboBox<String> jComboBoxGrupoSolicitud;
+    private javax.swing.JComboBox<String> jComboBoxListPublicaciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -681,16 +1134,25 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JList<String> jList1Solicitudes;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelGrupos;
     private javax.swing.JPanel jPanelLogIn;
     private javax.swing.JPanel jPanelPerfil;
+    private javax.swing.JPanel jPanelSolicitudes;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabSegu;
     private javax.swing.JTabbedPane jTabbedPaneHome;
+    private javax.swing.JTextArea jTextAreaPublicacion;
     private javax.swing.JTextField jTextFieldEmail;
+    private javax.swing.JTextField jTextFieldNuevoTitulo;
+    private javax.swing.JToggleButton jToggleButtonActualizarSolicitudes;
     private javax.swing.JButton jbtnLogIn;
     private javax.swing.JPanel jpanelCrearUsu;
     private javax.swing.JPanel jpanelHome;
@@ -705,7 +1167,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
     private javax.swing.JTextField jtextNombreCrear;
     private javax.swing.JTextField jtextNombreGrupoCrear;
     private javax.swing.JTextField jtextNombreUsuarioPerfil;
-    private javax.swing.JTextField jtextPublicacion;
+    private javax.swing.JTextField jtextNuevaPublicacion;
     private javax.swing.JTextField jtextTipoGrupoCrear;
     private javax.swing.JLabel labelDatosCita;
     private javax.swing.JLabel labelPublicacionesGrupo;
@@ -739,7 +1201,6 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                     for (Grupo gr : sistema.getGrupos()) {
                         String elemento = gr.getNombreG();
                         comboVerGrupos.addItem(elemento);
-                        comboPublicarGrupo.addItem(elemento);
                     }
                 } else if (p.getTipo().equals("Banquero")) {
                     jTextFieldEmail.setText(email);
@@ -758,10 +1219,17 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                     }
                     comboCitasPerfil.addItem("NO TIENE PERMISO");
                     labelDatosCita.setText("NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO");
+
                     for (Grupo gr : sistema.getGrupos()) {
                         String elemento = gr.getNombreG();
                         comboVerGrupos.addItem(elemento);
-                        comboPublicarGrupo.addItem(elemento);
+                    }
+                    for (Grupo gr : sistema.getGrupos()) {
+                        if (gr.getUsuarios().contains(p)) {
+                            String elemento = gr.getNombreG();
+                            comboPublicarGrupo.addItem(elemento);
+                        }
+
                     }
                 }
             }
@@ -781,20 +1249,34 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
             Contrasena c = null;
             try {
                 c = new Contrasena(contra, correo);
+
             } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUISeguridad.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
             } catch (IOException ex) {
-                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUISeguridad.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
             } catch (NoSuchPaddingException ex) {
-                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUISeguridad.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
             } catch (InvalidKeyException ex) {
-                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUISeguridad.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
             } catch (InvalidAlgorithmParameterException ex) {
-                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUISeguridad.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
             } catch (IllegalBlockSizeException ex) {
-                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUISeguridad.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
             } catch (BadPaddingException ex) {
-                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUISeguridad.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
             sistema.getPersonas().add(new Persona(nombre, apellido, c, (String) comoTipo.getSelectedItem(), correo, new DatosFinancieros(ingMensu, ingTot, null), null, nomUsu));
             guardarSistema();
@@ -811,26 +1293,22 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
 
             // Escribir el objeto en el fichero
             out.writeObject(o1);
-        }catch (FileNotFoundException ex)
-        {
+        } catch (FileNotFoundException ex) {
             System.out.println(ex);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
-    
-private void cargarSistema(){
-    try {
-            
+
+    private void cargarSistema() {
+        try {
+
             FileInputStream fis = new FileInputStream("fichero.dat");
             ObjectInputStream in = new ObjectInputStream(fis);
             sistema = (Sistema) in.readObject();
             in.close();
         } catch (Exception e) {
             System.out.println(e);
-        } 
+        }
     }
 }
-
-

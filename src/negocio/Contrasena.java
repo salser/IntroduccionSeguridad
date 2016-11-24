@@ -49,14 +49,16 @@ public class Contrasena implements Serializable {
         IvParameterSpec iv = new IvParameterSpec(new String ("VacioVacioVacioV").getBytes());
         c.init(Cipher.ENCRYPT_MODE, key , iv);
         byte [] encriptado = c.doFinal(hash);
+        //System.out.println("Contraseña1: "+c.doFinal(hash));
         StringBuffer sb = new StringBuffer();
+        
         for (int i = 0; i < encriptado.length; i++) {
           sb.append(Integer.toString((encriptado[i] & 0xff) + 0x100, 16).substring(1));
         }
         String texto =usuario.trim()+" "+sb.toString();
         try {
             PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("contrasenias.txt",true)));
-            out.append(texto+"\r\n");
+            out.append(texto+"\r");
             out.close();
         } catch (Exception e) {
             System.err.println(e);
@@ -72,10 +74,14 @@ public class Contrasena implements Serializable {
         byte [] hash=md.digest();
         String contraHash = new String (hash);
         Cipher c = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        
         SecretKeySpec key = new SecretKeySpec(new String("CualquierCosaCua").getBytes(),"AES");
         IvParameterSpec iv = new IvParameterSpec(new String ("VacioVacioVacioV").getBytes());
+        
         c.init(Cipher.ENCRYPT_MODE, key , iv);
+        
         byte [] encriptado = c.doFinal(hash);
+        
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < encriptado.length; i++) {
           sb.append(Integer.toString((encriptado[i] & 0xff) + 0x100, 16).substring(1));

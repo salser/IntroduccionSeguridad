@@ -16,20 +16,26 @@ import java.util.List;
 public class Grupo implements Serializable{
     private String nombreG;
     private String tipoGrupo;
-    private List<String> publicaciones;
+    private List<Publicacion> publicaciones;
+    private List<Persona> usuarios;
+    private List<Persona> solicitudes;
+    private Persona admin;
 
-    public Grupo(String tipoGrupo, String nombreG) {
+    public Grupo(String nombreG, String tipoGrupo, Persona admin) {
         this.nombreG = nombreG;
         this.tipoGrupo = tipoGrupo;
-        this.publicaciones = new ArrayList<String>();
+        this.publicaciones = new ArrayList<>();
+        this.usuarios = new ArrayList<>();
+        this.solicitudes = new ArrayList<>();
+        this.admin = admin;
     }
 
-    public String getNombreG() {
-        return nombreG;
+    public List<Persona> getSolicitudes() {
+        return solicitudes;
     }
 
-    public void setNombreG(String nombreG) {
-        this.nombreG = nombreG;
+    public void setSolicitudes(List<Persona> solicitudes) {
+        this.solicitudes = solicitudes;
     }
     
     public String getTipoGrupo() {
@@ -40,13 +46,43 @@ public class Grupo implements Serializable{
         this.tipoGrupo = tipoGrupo;
     }
 
-    public List<String> getPublicaciones() {
+      public List<Persona> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Persona> usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    public Persona getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(String admin, Sistema s) {
+        for(Persona p: s.getPersonas()){
+            if(p.getCorreo().equals(admin)){
+            this.admin = p;
+            }
+        }
+    }
+
+    public String getNombreG() {
+        return nombreG;
+    }
+
+    public void setNombreG(String nombreG) {
+        this.nombreG = nombreG;
+    }
+
+    public List<Publicacion> getPublicaciones() {
         return publicaciones;
     }
 
-    public void setPublicaciones(List<String> publicaciones) {
+    public void setPublicaciones(List<Publicacion> publicaciones) {
         this.publicaciones = publicaciones;
     }
+
+    
     
     
 }
