@@ -7,18 +7,26 @@ package GUI;
 
 import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.SimpleTimeZone;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.BadPaddingException;
@@ -34,6 +42,7 @@ import negocio.Grupo;
 import negocio.Persona;
 import negocio.Publicacion;
 import negocio.Sistema;
+import sun.util.calendar.Gregorian;
 
 /**
  *
@@ -1310,5 +1319,35 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+    public static boolean crearLog(String transaccion, String usuario) {
+        try {
+            String[] ids = TimeZone.getAvailableIDs(-8 * 60 * 60 * 1000);
+            if (ids.length == 0) {
+                System.exit(0);
+            }
+            System.out.println("Current Time");
+            SimpleTimeZone pdt = new SimpleTimeZone(-8 * 60 * 60 * 1000, ids[0]);
+            pdt.setStartRule(Calendar.APRIL, 1, Calendar.SUNDAY, 2 * 60 * 60 * 1000);
+            pdt.setEndRule(Calendar.OCTOBER, -1, Calendar.SUNDAY, 2 * 60 * 60 * 1000);
+            Calendar calendar = new GregorianCalendar(pdt);
+            Date trialTime = new Date();
+            calendar.setTime(trialTime);
+            GregorianCalendar hoy = new GregorianCalendar();
+            int anio = calendar.get(Calendar.YEAR);
+            int mes = calendar.get(Calendar.MONTH);
+            int dia = calendar.get(Calendar.DATE);
+            int horas = calendar.get(Calendar.HOUR) + 3;
+            int minutos = calendar.get(Calendar.MINUTE);
+            System.out.println(anio);
+            String fecha = (dia + "/" + mes + "/" + anio + "      " + horas + ":" + minutos);
+            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("log.txt", true)));
+            out.append(String.format("%s %20s %20s", fecha, transaccion, usuario) + "\r\n");
+            out.close();
+            return true;
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return false;
     }
 }
