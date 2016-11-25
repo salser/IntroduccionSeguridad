@@ -8,6 +8,7 @@ package GUI;
 import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -27,14 +28,19 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.SimpleTimeZone;
 import java.util.TimeZone;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.ListModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import javax.swing.text.Element;
+import negocio.Archivo;
 import negocio.Contrasena;
 import negocio.DatosFinancieros;
 import negocio.DatosMedicos;
@@ -140,6 +146,8 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
         jButtonActulizarGruposDisponibles = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaPublicacion = new javax.swing.JTextArea();
+        jButtonModificarPublicacion = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
         jPanelSolicitudes = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1Solicitudes = new javax.swing.JList<>();
@@ -149,10 +157,24 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
         jComboBoxGrupoSolicitud = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel2 = new javax.swing.JPanel();
+        jButtonCargarArchivos = new javax.swing.JButton();
+        jButtonDescargaArchivos = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableMisArchivos = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTabSegu.setEnabled(false);
+        jTabSegu.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTabSeguFocusGained(evt);
+            }
+        });
 
         jLabel1.setText("Correo Electrónico");
 
@@ -319,7 +341,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
             jpanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpanelHomeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPaneHome, javax.swing.GroupLayout.DEFAULT_SIZE, 1099, Short.MAX_VALUE)
+                .addComponent(jTabbedPaneHome, javax.swing.GroupLayout.DEFAULT_SIZE, 1137, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jpanelHomeLayout.setVerticalGroup(
@@ -378,7 +400,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                 .addGroup(jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanelPerfilLayout.createSequentialGroup()
                         .addComponent(labelDatosCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap(1038, Short.MAX_VALUE))
+                        .addContainerGap(1077, Short.MAX_VALUE))
                     .addGroup(jPanelPerfilLayout.createSequentialGroup()
                         .addGroup(jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(comboCitasPerfil, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -401,7 +423,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                         .addGroup(jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboGastoPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(587, Short.MAX_VALUE))))
+                        .addContainerGap(625, Short.MAX_VALUE))))
         );
         jPanelPerfilLayout.setVerticalGroup(
             jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -529,6 +551,15 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
         jTextAreaPublicacion.setRows(5);
         jScrollPane2.setViewportView(jTextAreaPublicacion);
 
+        jButtonModificarPublicacion.setText("Modificar");
+        jButtonModificarPublicacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarPublicacionActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Descripción de grupo:");
+
         javax.swing.GroupLayout jPanelGruposLayout = new javax.swing.GroupLayout(jPanelGrupos);
         jPanelGrupos.setLayout(jPanelGruposLayout);
         jPanelGruposLayout.setHorizontalGroup(
@@ -543,13 +574,15 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                                 .addComponent(btnPublicar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(comboPublicarGrupo, javax.swing.GroupLayout.Alignment.LEADING, 0, 150, Short.MAX_VALUE)
                                 .addComponent(jButtonActulizarGruposDisponibles, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtextNuevaPublicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanelGruposLayout.createSequentialGroup()
+                                .addGap(9, 9, 9)
                                 .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldNuevoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldNuevoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelGruposLayout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(jtextNuevaPublicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanelGruposLayout.createSequentialGroup()
                         .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jtextNombreGrupoCrear, javax.swing.GroupLayout.Alignment.LEADING)
@@ -563,87 +596,98 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                         .addComponent(btnCrearGrupo)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanelGruposLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1099, Short.MAX_VALUE)
+                    .addGroup(jPanelGruposLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator2))
                     .addGroup(jPanelGruposLayout.createSequentialGroup()
                         .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanelGruposLayout.createSequentialGroup()
-                                .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanelGruposLayout.createSequentialGroup()
-                                        .addComponent(labelPublicacionesGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButtonSolicitar, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanelGruposLayout.createSequentialGroup()
-                                        .addComponent(comboVerGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(100, 100, 100)
-                                        .addComponent(btnMostrarPublicaciones)))
+                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboVerGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelGruposLayout.createSequentialGroup()
+                                .addGap(29, 29, 29)
                                 .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanelGruposLayout.createSequentialGroup()
-                                        .addGap(77, 77, 77)
-                                        .addComponent(jComboBoxListPublicaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanelGruposLayout.createSequentialGroup()
-                                        .addGap(49, 49, 49)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(labelPublicacionesGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonSolicitar, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMostrarPublicaciones))
+                        .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGruposLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonModificarPublicacion)
+                                .addGap(173, 173, 173))
+                            .addGroup(jPanelGruposLayout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxListPublicaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(123, 123, 123)))))
                 .addContainerGap())
         );
         jPanelGruposLayout.setVerticalGroup(
             jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelGruposLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel19)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboVerGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMostrarPublicaciones)
-                    .addComponent(jComboBoxListPublicaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelGruposLayout.createSequentialGroup()
-                        .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelPublicacionesGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(2, 2, 2)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(28, 28, 28)
                         .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel22)
-                            .addComponent(jLabel23)
-                            .addComponent(jTextFieldNuevoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboVerGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxListPublicaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGruposLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnMostrarPublicaciones)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelGruposLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonModificarPublicacion))
+                    .addGroup(jPanelGruposLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelPublicacionesGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonSolicitar, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGap(26, 26, 26)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelGruposLayout.createSequentialGroup()
+                        .addComponent(comboPublicarGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, Short.MAX_VALUE))
+                    .addGroup(jPanelGruposLayout.createSequentialGroup()
                         .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelGruposLayout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(jButtonActulizarGruposDisponibles)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboPublicarGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, Short.MAX_VALUE))
+                                .addComponent(btnPublicar))
                             .addGroup(jPanelGruposLayout.createSequentialGroup()
-                                .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanelGruposLayout.createSequentialGroup()
-                                        .addGap(44, 44, 44)
-                                        .addComponent(jButtonActulizarGruposDisponibles)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnPublicar))
-                                    .addGroup(jPanelGruposLayout.createSequentialGroup()
-                                        .addGap(22, 22, 22)
-                                        .addComponent(jtextNuevaPublicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel20)
-                                    .addComponent(jLabel21))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jtextNombreGrupoCrear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtextTipoGrupoCrear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnCrearGrupo))
-                                .addGap(117, 117, 117))))
-                    .addGroup(jPanelGruposLayout.createSequentialGroup()
-                        .addComponent(jButtonSolicitar)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addComponent(jLabel23)
+                                    .addComponent(jTextFieldNuevoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jtextNuevaPublicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel21))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtextNombreGrupoCrear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtextTipoGrupoCrear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCrearGrupo))
+                        .addGap(117, 117, 117))))
         );
 
         jTabSegu.addTab("Grupos", jPanelGrupos);
@@ -701,7 +745,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
         jPanelSolicitudesLayout.setHorizontalGroup(
             jPanelSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSolicitudesLayout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
+                .addContainerGap(99, Short.MAX_VALUE)
                 .addGroup(jPanelSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(jLabel4))
@@ -743,6 +787,102 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
 
         jTabSegu.addTab("Solicitudes", jPanelSolicitudes);
 
+        jButtonCargarArchivos.setText("Cargar archivos");
+        jButtonCargarArchivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCargarArchivosActionPerformed(evt);
+            }
+        });
+
+        jButtonDescargaArchivos.setText("Descargar archivo");
+        jButtonDescargaArchivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDescargaArchivosActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Archivos disponibles");
+
+        jTableMisArchivos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Fecha", "Nombre Archivo"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(jTableMisArchivos);
+
+        jScrollPane4.setViewportView(jScrollPane3);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(jLabel8))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 597, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(jButtonCargarArchivos)
+                        .addGap(67, 67, 67)
+                        .addComponent(jButtonDescargaArchivos)))
+                .addContainerGap(424, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonCargarArchivos)
+                    .addComponent(jButtonDescargaArchivos))
+                .addGap(243, 243, 243))
+        );
+
+        jTabbedPane2.addTab("Mis archivos", jPanel2);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1128, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 630, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("Archivos compartidos", jPanel3);
+
+        jTabSegu.addTab("Archivos", jTabbedPane2);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -766,8 +906,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -780,181 +919,9 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldEmailFocusGained
-        jTextFieldEmail.setText("");
-    }//GEN-LAST:event_jTextFieldEmailFocusGained
-
-    private void jTextFieldEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldEmailFocusLost
-        if (jTextFieldEmail.getText().equals("")) {
-            jTextFieldEmail.setText("asdasd@mail.com");
-        }
-    }//GEN-LAST:event_jTextFieldEmailFocusLost
-
-    private void jbtnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLogInActionPerformed
-        try {
-            entroUsuario(evt);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchPaddingException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidKeyException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidAlgorithmParameterException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalBlockSizeException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (BadPaddingException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jbtnLogInActionPerformed
-
-    private void btnCrearUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuario1ActionPerformed
-        try {
-            crearUsuario(evt);
-        } catch (IOException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnCrearUsuario1ActionPerformed
-
-    private void btnCrearGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearGrupoActionPerformed
+    private void jComboBoxGrupoSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxGrupoSolicitudActionPerformed
         // TODO add your handling code here:
-        Persona p = null;
-        for (Persona pe : sistema.getPersonas()) {
-            if (pe.getCorreo().equals(jTextFieldEmail.getText())) {
-                p = pe;
-            }
-        }
-        Grupo gr = new Grupo(jtextNombreGrupoCrear.getText(), jtextTipoGrupoCrear.getText(), p);
-        sistema.getGrupos().add(gr);
-        String elemento = jtextNombreGrupoCrear.getText();
-        comboVerGrupos.addItem(elemento);
-        comboPublicarGrupo.addItem(elemento);
-        try {
-            guardarSistema();
-            //jtextPublicacion.updateUI();
-        } catch (IOException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_btnCrearGrupoActionPerformed
-
-    private void jtextNombreGrupoCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtextNombreGrupoCrearActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtextNombreGrupoCrearActionPerformed
-
-    private void jButtonAceptarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarSolicitudActionPerformed
-        // TODO add your handling code here
-        for (Grupo g : sistema.getGrupos()) {
-            if (g.getNombreG().equals(jComboBoxGrupoSolicitud.getSelectedItem())) {
-                for (Persona p : sistema.getPersonas()) {
-                    if (p.getCorreo().equals(jList1Solicitudes.getSelectedValue())) {
-                        g.getUsuarios().add(p);
-                        DefaultListModel<String> model = (DefaultListModel<String>) jList1Solicitudes.getModel();
-                        model.remove(jList1Solicitudes.getSelectedIndex());
-                        jList1Solicitudes.setModel(model);
-                        jList1Solicitudes.updateUI();
-                    }
-                }
-            }
-        }
-    }//GEN-LAST:event_jButtonAceptarSolicitudActionPerformed
-
-    private void comboVerGruposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboVerGruposActionPerformed
-        // TODO add your handling code here:
-        if (comboVerGrupos.isEnabled()) {
-            String grupo = comboVerGrupos.getSelectedItem().toString();
-            for (Grupo gr : sistema.getGrupos()) {
-                if (gr.getNombreG().equals(grupo)) {
-                    labelPublicacionesGrupo.setText(gr.getTipoGrupo());
-                }
-            }
-        }
-    }//GEN-LAST:event_comboVerGruposActionPerformed
-
-    private void comboPublicarGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPublicarGrupoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboPublicarGrupoActionPerformed
-
-    private void btnPublicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPublicarActionPerformed
-        // TODO add your handling code here:
-        Persona p = null;
-        for (Persona pe : sistema.getPersonas()) {
-            if (pe.getCorreo().equals(jTextFieldEmail)) {
-                p = pe;
-            }
-        }
-        try {
-            Publicacion pu = new Publicacion(jTextFieldNuevoTitulo.getText(), jtextNuevaPublicacion.getText(), p);
-            Grupo g = null;
-            for (Grupo gr : sistema.getGrupos()) {
-                if (comboPublicarGrupo.getSelectedItem().toString().equals(gr.getNombreG())) {
-                    gr.getPublicaciones().add(pu);
-                }
-            }
-            guardarSistema();
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchPaddingException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalBlockSizeException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (BadPaddingException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidKeyException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidAlgorithmParameterException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_btnPublicarActionPerformed
-
-    private void jTextFieldNuevoTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNuevoTituloActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNuevoTituloActionPerformed
-
-    private void btnMostrarPublicacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarPublicacionesActionPerformed
-        // TODO add your handling code here:
-        jComboBoxListPublicaciones.removeAllItems();
-        for (Grupo g : sistema.getGrupos()) {
-            if (comboVerGrupos.getSelectedItem().toString().equals(g.getNombreG())) {
-                for (Publicacion p : g.getPublicaciones()) {
-                    jComboBoxListPublicaciones.addItem(p.getTitulo());
-                }
-
-            }
-        }
-        jComboBoxListPublicaciones.updateUI();
-    }//GEN-LAST:event_btnMostrarPublicacionesActionPerformed
-
-    private void jButtonSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSolicitarActionPerformed
-        // TODO add your handling code here:
-        Persona p = null;
-        for (Persona pe : sistema.getPersonas()) {
-            if (pe.getCorreo().equals(jTextFieldEmail.getText())) {
-                p = pe;
-            }
-        }
-        for (Grupo g : sistema.getGrupos()) {
-            if (comboVerGrupos.getSelectedItem().toString().equals(g.getNombreG())) {
-                g.getSolicitudes().add(p);
-            }
-        }
-        try {
-            guardarSistema();
-        } catch (IOException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButtonSolicitarActionPerformed
+    }//GEN-LAST:event_jComboBoxGrupoSolicitudActionPerformed
 
     private void jToggleButtonActualizarSolicitudesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonActualizarSolicitudesActionPerformed
         // TODO add your handling code here:
@@ -992,17 +959,15 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
         }
     }//GEN-LAST:event_jToggleButtonActualizarSolicitudesActionPerformed
 
-    private void jList1SolicitudesAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jList1SolicitudesAncestorAdded
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jList1SolicitudesAncestorAdded
-
-    private void jComboBoxGrupoSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxGrupoSolicitudActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxGrupoSolicitudActionPerformed
-
     private void jButtonRechazarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRechazarSolicitudActionPerformed
         // TODO add your handling code here:
+        Persona pep = null;
+        for (Persona pe : sistema.getPersonas()) {
+            if (pe.getCorreo().equals(jTextFieldEmail.getText())) {
+                pep = pe;
+            }
+        }
+        crearLog("Rechazo de solicitud", pep.getNomUsuario());
         for (Grupo g : sistema.getGrupos()) {
             if (g.getNombreG().equals(jComboBoxGrupoSolicitud.getSelectedItem())) {
                 for (Persona p : sistema.getPersonas()) {
@@ -1018,6 +983,34 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
             }
         }
     }//GEN-LAST:event_jButtonRechazarSolicitudActionPerformed
+
+    private void jButtonAceptarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarSolicitudActionPerformed
+        // TODO add your handling code here
+        Persona pep = null;
+        for (Persona pe : sistema.getPersonas()) {
+            if (pe.getCorreo().equals(jTextFieldEmail.getText())) {
+                pep = pe;
+            }
+        }
+        crearLog("Acepto solicitud", pep.getNomUsuario());
+        for (Grupo g : sistema.getGrupos()) {
+            if (g.getNombreG().equals(jComboBoxGrupoSolicitud.getSelectedItem())) {
+                for (Persona p : sistema.getPersonas()) {
+                    if (p.getCorreo().equals(jList1Solicitudes.getSelectedValue())) {
+                        g.getUsuarios().add(p);
+                        DefaultListModel<String> model = (DefaultListModel<String>) jList1Solicitudes.getModel();
+                        model.remove(jList1Solicitudes.getSelectedIndex());
+                        jList1Solicitudes.setModel(model);
+                        jList1Solicitudes.updateUI();
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jButtonAceptarSolicitudActionPerformed
+
+    private void jList1SolicitudesAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jList1SolicitudesAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jList1SolicitudesAncestorAdded
 
     private void jButtonActulizarGruposDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActulizarGruposDisponiblesActionPerformed
         // TODO add your handling code here:
@@ -1037,12 +1030,41 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
         }
     }//GEN-LAST:event_jButtonActulizarGruposDisponiblesActionPerformed
 
+    private void jButtonSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSolicitarActionPerformed
+        // TODO add your handling code here:
+        Persona pep = null;
+        for (Persona pe : sistema.getPersonas()) {
+            if (pe.getCorreo().equals(jTextFieldEmail.getText())) {
+                pep = pe;
+            }
+        }
+        crearLog("Realizo solicitud", pep.getNomUsuario());
+        Persona p = null;
+        for (Persona pe : sistema.getPersonas()) {
+            if (pe.getCorreo().equals(jTextFieldEmail.getText())) {
+                p = pe;
+            }
+        }
+        for (Grupo g : sistema.getGrupos()) {
+            if (comboVerGrupos.getSelectedItem().toString().equals(g.getNombreG())) {
+                g.getSolicitudes().add(p);
+            }
+        }
+        try {
+            guardarSistema();
+        } catch (IOException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonSolicitarActionPerformed
+
     private void jComboBoxListPublicacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxListPublicacionesActionPerformed
         // TODO add your handling code here:
         if (jComboBoxListPublicaciones.isEnabled()) {
             for (Grupo gr : sistema.getGrupos()) {
-                for(Publicacion pu: gr.getPublicaciones()){
-                    if(pu.getTitulo().equals(jComboBoxListPublicaciones.getSelectedItem())){
+                for (Publicacion pu : gr.getPublicaciones()) {
+                    if (pu.getTitulo().equals(jComboBoxListPublicaciones.getSelectedItem())) {
                         try {
                             jTextAreaPublicacion.setText(pu.getTexto());
                         } catch (Exception ex) {
@@ -1053,6 +1075,236 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
             }
         }
     }//GEN-LAST:event_jComboBoxListPublicacionesActionPerformed
+
+    private void jTextFieldNuevoTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNuevoTituloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNuevoTituloActionPerformed
+
+    private void btnPublicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPublicarActionPerformed
+        // TODO add your handling code here:
+        Persona p = null;
+        for (Persona pe : sistema.getPersonas()) {
+            if (pe.getCorreo().equals(jTextFieldEmail.getText())) {
+                p = pe;
+            }
+        }
+        try {
+            Publicacion pu = new Publicacion(jTextFieldNuevoTitulo.getText(), jtextNuevaPublicacion.getText(), p);
+            
+            for (Grupo gr : sistema.getGrupos()) {
+                if (comboPublicarGrupo.getSelectedItem().toString().equals(gr.getNombreG())) {
+                    gr.getPublicaciones().add(pu);
+                    crearLog("Pulicó", p.getNomUsuario()+ " a " + gr.getNombreG());
+                }
+            }
+            
+            guardarSistema();
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchPaddingException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalBlockSizeException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (BadPaddingException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeyException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidAlgorithmParameterException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnPublicarActionPerformed
+
+    private void comboPublicarGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPublicarGrupoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboPublicarGrupoActionPerformed
+
+    private void btnCrearGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearGrupoActionPerformed
+        // TODO add your handling code here:
+        Persona p = null;
+        for (Persona pe : sistema.getPersonas()) {
+            if (pe.getCorreo().equals(jTextFieldEmail.getText())) {
+                p = pe;
+            }
+        }
+        Grupo gr = new Grupo(jtextNombreGrupoCrear.getText(), jtextTipoGrupoCrear.getText(), p);
+        sistema.getGrupos().add(gr);
+        String elemento = jtextNombreGrupoCrear.getText();
+        comboVerGrupos.addItem(elemento);
+        comboPublicarGrupo.addItem(elemento);
+        crearLog("Creó Grupo", p.getNomUsuario() + " nombre " + elemento);
+        try {
+            guardarSistema();
+            //jtextPublicacion.updateUI();
+        } catch (IOException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCrearGrupoActionPerformed
+
+    private void jtextNombreGrupoCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtextNombreGrupoCrearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtextNombreGrupoCrearActionPerformed
+
+    private void btnMostrarPublicacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarPublicacionesActionPerformed
+        // TODO add your handling code here:
+        Persona p = null;
+        for (Persona pe : sistema.getPersonas()) {
+            if (pe.getCorreo().equals(jTextFieldEmail.getText())) {
+                p = pe;
+            }
+        }
+        jComboBoxListPublicaciones.removeAllItems();
+        for (Grupo g : sistema.getGrupos()) {
+            if (g.getUsuarios().contains(p) || g.getAdmin().getCorreo().equalsIgnoreCase(p.getCorreo())) {
+                String elemento = g.getNombreG();
+                comboPublicarGrupo.addItem(elemento);
+
+                if (comboVerGrupos.getSelectedItem().toString().equals(g.getNombreG())) {
+                    for (Publicacion pu : g.getPublicaciones()) {
+                        jComboBoxListPublicaciones.addItem(pu.getTitulo());
+                    }
+
+                }
+            }
+        }
+        jComboBoxListPublicaciones.updateUI();
+    }//GEN-LAST:event_btnMostrarPublicacionesActionPerformed
+
+    private void comboVerGruposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboVerGruposActionPerformed
+        // TODO add your handling code here:
+        if (comboVerGrupos.isEnabled()) {
+            String grupo = comboVerGrupos.getSelectedItem().toString();
+            for (Grupo gr : sistema.getGrupos()) {
+                if (gr.getNombreG().equals(grupo)) {
+                    labelPublicacionesGrupo.setText(gr.getTipoGrupo());
+                }
+            }
+        }
+    }//GEN-LAST:event_comboVerGruposActionPerformed
+
+    private void btnCrearUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuario1ActionPerformed
+        try {
+            crearUsuario(evt);
+        } catch (IOException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCrearUsuario1ActionPerformed
+
+    private void jbtnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLogInActionPerformed
+        try {
+            entroUsuario(evt);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchPaddingException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeyException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidAlgorithmParameterException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalBlockSizeException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (BadPaddingException ex) {
+            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbtnLogInActionPerformed
+
+    private void jTextFieldEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldEmailFocusLost
+        if (jTextFieldEmail.getText().equals("")) {
+            jTextFieldEmail.setText("asdasd@mail.com");
+        }
+    }//GEN-LAST:event_jTextFieldEmailFocusLost
+
+    private void jTextFieldEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldEmailFocusGained
+        jTextFieldEmail.setText("");
+    }//GEN-LAST:event_jTextFieldEmailFocusGained
+
+    private void jButtonModificarPublicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarPublicacionActionPerformed
+        //crearLog("modifica grupo", p.getNomUsuario() + " a "+ el grupo);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonModificarPublicacionActionPerformed
+
+    private void jButtonCargarArchivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCargarArchivosActionPerformed
+        // TODO add your handling code here:
+        Persona p = null;
+        for (Persona pe : sistema.getPersonas()) {
+            if (pe.getCorreo().equals(jTextFieldEmail.getText())) {
+                p = pe;
+            }
+        }
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        Archivo a = null;
+        int returnVal = fc.showOpenDialog(fc);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            try {
+                File f = fc.getSelectedFile();
+                String path = f.getAbsolutePath();
+                String nombre = f.getName();
+                a = new Archivo(nombre, path, p);
+                p.getArchivos().add(a);
+                crearLog("cargar archivo", p.getNomUsuario() + " cargò " + nombre);
+                guardarSistema();
+
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NoSuchPaddingException ex) {
+                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidKeyException ex) {
+                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidAlgorithmParameterException ex) {
+                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalBlockSizeException ex) {
+                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (BadPaddingException ex) {
+                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+
+
+    }//GEN-LAST:event_jButtonCargarArchivosActionPerformed
+
+    private void jButtonDescargaArchivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDescargaArchivosActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButtonDescargaArchivosActionPerformed
+
+    private void jTabSeguFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabSeguFocusGained
+        // TODO add your handling code here:
+        Persona p = null;
+        for (Persona pe : sistema.getPersonas()) {
+            if (pe.getCorreo().equals(jTextFieldEmail.getText())) {
+                p = pe;
+            }
+        }
+        jTableMisArchivos.removeAll();
+        DefaultTableModel tableModel = (DefaultTableModel) jTableMisArchivos.getModel();
+        int rowCount = tableModel.getRowCount();
+        //Remove rows one by one from the end of the table
+        for (int i = rowCount - 1; i >= 0; i--) {
+            tableModel.removeRow(i);
+        }
+        for (Archivo a : p.getArchivos()) {
+            Vector<String> v = new Vector<String>();
+            String fech = a.getFecha().get(Calendar.YEAR) + "/" + (a.getFecha().get(Calendar.MONTH) + 1) + "/" + a.getFecha().get(Calendar.DATE);
+            String nom = a.getTitulo().toString();
+            v.add(fech);
+            v.add(nom);
+            tableModel.addRow(v);
+        }
+        jTableMisArchivos.setModel(tableModel);
+    }//GEN-LAST:event_jTabSeguFocusGained
 
     /**
      * @param args the command line arguments
@@ -1115,6 +1367,9 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
     private javax.swing.JPasswordField contraRepitaCrear1;
     private javax.swing.JButton jButtonAceptarSolicitud;
     private javax.swing.JButton jButtonActulizarGruposDisponibles;
+    private javax.swing.JButton jButtonCargarArchivos;
+    private javax.swing.JButton jButtonDescargaArchivos;
+    private javax.swing.JButton jButtonModificarPublicacion;
     private javax.swing.JButton jButtonRechazarSolicitud;
     private javax.swing.JButton jButtonSolicitar;
     private javax.swing.JComboBox<String> jComboBoxGrupoSolicitud;
@@ -1146,18 +1401,26 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JList<String> jList1Solicitudes;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelGrupos;
     private javax.swing.JPanel jPanelLogIn;
     private javax.swing.JPanel jPanelPerfil;
     private javax.swing.JPanel jPanelSolicitudes;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabSegu;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPaneHome;
+    private javax.swing.JTable jTableMisArchivos;
     private javax.swing.JTextArea jTextAreaPublicacion;
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldNuevoTitulo;
@@ -1211,6 +1474,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                         String elemento = gr.getNombreG();
                         comboVerGrupos.addItem(elemento);
                     }
+                    crearLog("login", p.getNomUsuario());
                 } else if (p.getTipo().equals("Banquero")) {
                     jTextFieldEmail.setText(email);
                     jTextFieldEmail.setEnabled(false);
@@ -1238,8 +1502,8 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                             String elemento = gr.getNombreG();
                             comboPublicarGrupo.addItem(elemento);
                         }
-
                     }
+                    crearLog("login", p.getNomUsuario());
                 }
             }
         }
@@ -1258,6 +1522,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
             Contrasena c = null;
             try {
                 c = new Contrasena(contra, correo);
+                
 
             } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(GUISeguridad.class
@@ -1287,7 +1552,8 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                 Logger.getLogger(GUISeguridad.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
-            sistema.getPersonas().add(new Persona(nombre, apellido, c, (String) comoTipo.getSelectedItem(), correo, new DatosFinancieros(ingMensu, ingTot, null), null, nomUsu));
+            sistema.getPersonas().add(new Persona(nombre, apellido, c, (String) comoTipo.getSelectedItem(), correo, null, nomUsu));
+            crearLog("crear usuario", nomUsu);
             guardarSistema();
         }
     }
@@ -1302,6 +1568,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
 
             // Escribir el objeto en el fichero
             out.writeObject(o1);
+            System.out.println("Guardo sistema");
         } catch (FileNotFoundException ex) {
             System.out.println(ex);
         } catch (Exception e) {
@@ -1311,15 +1578,16 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
 
     private void cargarSistema() {
         try {
-
             FileInputStream fis = new FileInputStream("fichero.dat");
             ObjectInputStream in = new ObjectInputStream(fis);
             sistema = (Sistema) in.readObject();
+            System.out.println("Cargo sistema");
             in.close();
         } catch (Exception e) {
             System.out.println(e);
         }
     }
+
     public static boolean crearLog(String transaccion, String usuario) {
         try {
             String[] ids = TimeZone.getAvailableIDs(-8 * 60 * 60 * 1000);
@@ -1333,7 +1601,6 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
             Calendar calendar = new GregorianCalendar(pdt);
             Date trialTime = new Date();
             calendar.setTime(trialTime);
-            GregorianCalendar hoy = new GregorianCalendar();
             int anio = calendar.get(Calendar.YEAR);
             int mes = calendar.get(Calendar.MONTH);
             int dia = calendar.get(Calendar.DATE);

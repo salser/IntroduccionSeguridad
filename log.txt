@@ -1,0 +1,19 @@
+24/10/2016      8:25        crear usuario             josecini
+24/10/2016      8:26                login             josecini
+24/10/2016      8:27           Creó Grupo josecini nombre Maiden
+24/10/2016      8:31                login             josecini
+24/10/2016      8:34                login             josecini
+24/10/2016      8:35               Pulicó    josecini a Maiden
+24/10/2016      8:38                login             josecini
+24/10/2016      8:38       cargar archivo josecini cargò pslog.txt
+24/10/2016      8:38       cargar archivo josecini cargò Captura de pantalla 2016-10-13 a las 11.21.53 p.m..png
+24/10/2016      8:42        crear usuario                   ew
+24/10/2016      8:43        crear usuario                   po
+24/10/2016      8:43                login                   po
+24/10/2016      8:43       cargar archivo   po cargò pslog.txt
+24/10/2016      8:43       cargar archivo po cargò Captura de pantalla 2016-10-13 a las 11.21.53 p.m..png
+24/10/2016      8:49        crear usuario                   qw
+24/10/2016      8:49                login                   qw
+24/10/2016      8:49       cargar archivo   qw cargò pslog.txt
+24/10/2016      8:49       cargar archivo qw cargò Captura de pantalla 2016-10-13 a las 11.21.53 p.m..png
+24/10/2016      8:50                login                   qw

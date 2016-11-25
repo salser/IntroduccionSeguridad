@@ -6,6 +6,7 @@
 package negocio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,16 +21,16 @@ public class Persona implements Serializable {
     private String tipo;
     private String correo;
     private DatosFinancieros datosF;
-    private List<DatosMedicos> datosMedicos;
+    private List<Archivo> archivos;
 
-    public Persona(String nombre, String apellido, Contrasena contrasenia, String tipo, String correo, DatosFinancieros datosF, List<DatosMedicos> datosMedicos, String nomUsuario) {
+    public Persona(String nombre, String apellido, Contrasena contrasenia, String tipo, String correo,  List<Archivo> archivos, String nomUsuario) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.contrasenia = contrasenia;
         this.tipo = tipo;
         this.correo = correo;
         this.datosF = datosF;
-        this.datosMedicos = datosMedicos;
+        this.archivos = new ArrayList<Archivo>();
         this.nomUsuario = nomUsuario;
     }
 
@@ -89,13 +90,14 @@ public class Persona implements Serializable {
         this.datosF = datosF;
     }
 
-    public List<DatosMedicos> getDatosMedicos() {
-        return datosMedicos;
+    public List<Archivo> getArchivos() {
+        return archivos;
     }
 
-    public void setDatosMedicos(List<DatosMedicos> datosMedicos) {
-        this.datosMedicos = datosMedicos;
+    public void setArchivos(List<Archivo> archivos) {
+        this.archivos = archivos;
     }
+
     
     
 }

@@ -15,8 +15,11 @@ import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.SimpleTimeZone;
+import java.util.TimeZone;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -31,7 +34,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class Publicacion implements Serializable{
     private String titulo;
     private byte [] textoCifrado;
-    private GregorianCalendar fechaCreacion;
+    private Calendar fechaCreacion;
     private Persona admin;
     private byte [] hash;
 
@@ -60,11 +63,11 @@ public class Publicacion implements Serializable{
         this.textoCifrado = texto;
     }
 
-    public GregorianCalendar getFechaCreacion() {
+    public Calendar getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(GregorianCalendar fechaCreacion) {
+    public void setFechaCreacion(Calendar fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
@@ -90,7 +93,18 @@ public class Publicacion implements Serializable{
         
         this.textoCifrado = encriptado;
         this.admin = admin;
-        this.fechaCreacion = new GregorianCalendar();
+        String[] ids = TimeZone.getAvailableIDs(-8 * 60 * 60 * 1000);
+        if (ids.length == 0) {
+            System.exit(0);
+        }
+        System.out.println("Current Time");
+        SimpleTimeZone pdt = new SimpleTimeZone(-8 * 60 * 60 * 1000, ids[0]);
+        pdt.setStartRule(Calendar.APRIL, 1, Calendar.SUNDAY, 2 * 60 * 60 * 1000);
+        pdt.setEndRule(Calendar.OCTOBER, -1, Calendar.SUNDAY, 2 * 60 * 60 * 1000);
+        Calendar calendar = new GregorianCalendar(pdt);
+        Date trialTime = new Date();
+        calendar.setTime(trialTime);
+        this.fechaCreacion = calendar;
         this.titulo = titulo;
       
         
