@@ -1,34 +1,9 @@
-24/10/2016      8:25        crear usuario             josecini
-24/10/2016      8:26                login             josecini
-24/10/2016      8:27           Creó Grupo josecini nombre Maiden
-24/10/2016      8:31                login             josecini
-24/10/2016      8:34                login             josecini
-24/10/2016      8:35               Pulicó    josecini a Maiden
-24/10/2016      8:38                login             josecini
-24/10/2016      8:38       cargar archivo josecini cargò pslog.txt
-24/10/2016      8:38       cargar archivo josecini cargò Captura de pantalla 2016-10-13 a las 11.21.53 p.m..png
-24/10/2016      8:42        crear usuario                   ew
-24/10/2016      8:43        crear usuario                   po
-24/10/2016      8:43                login                   po
-24/10/2016      8:43       cargar archivo   po cargò pslog.txt
-24/10/2016      8:43       cargar archivo po cargò Captura de pantalla 2016-10-13 a las 11.21.53 p.m..png
-24/10/2016      8:49        crear usuario                   qw
-24/10/2016      8:49                login                   qw
-24/10/2016      8:49       cargar archivo   qw cargò pslog.txt
-24/10/2016      8:49       cargar archivo qw cargò Captura de pantalla 2016-10-13 a las 11.21.53 p.m..png
-24/10/2016      8:50                login                   qw
-24/10/2016      9:51        crear usuario                   mi
-24/10/2016      9:51                login                   mi
-24/10/2016      9:51       cargar archivo   mi cargò pslog.txt
-24/10/2016      10:5        crear usuario                   no
-24/10/2016      10:5                login                   no
-24/10/2016      10:5       cargar archivo   no cargò pslog.txt
-24/10/2016      10:5       cargar archivo no cargò Captura de pantalla 2016-10-13 a las 11.21.53 p.m..png
-24/10/2016      10:7                login                   no
-24/10/2016      10:7       cargar archivo   no cargò pslog.txt
-24/10/2016      10:8       cargar archivo no cargò LICENSE_es.html
-24/10/2016      10:8       cargar archivo   no cargò pslog.txt
-24/10/2016      10:9       cargar archivo   no cargò pslog.txt
-24/10/2016      10:9       cargar archivo   no cargò pslog.txt
-24/10/2016      10:15                login                   no
-24/10/2016      10:15        crear usuario                   ho
+24/10/2016      13:28        crear usuario                   pp
+24/10/2016      13:28                login                   pp
+24/10/2016      13:29       cargar archivo   pp cargò pslog.txt
+24/10/2016      13:29       cargar archivo pp cargò __changelog.xml
+24/10/2016      13:29       cargar archivo pp cargò Captura de pantalla 2016-10-13 a las 11.21.53 p.m..png
+24/10/2016      13:30        crear usuario                   ll
+24/10/2016      13:30                login                   ll
+24/10/2016      13:31       cargar archivo   ll cargò pslog.txt
+24/10/2016      13:35                login                   ll

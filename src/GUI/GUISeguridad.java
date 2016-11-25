@@ -39,6 +39,7 @@ import javax.swing.JFileChooser;
 import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 import javax.swing.text.Element;
 import negocio.Archivo;
 import negocio.Contrasena;
@@ -156,6 +157,8 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
         jComboBoxGrupoSolicitud = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jButtonCargarArchivos = new javax.swing.JButton();
@@ -356,7 +359,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
             .addGroup(jpanelHomeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPaneHome, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabSegu.addTab("Home", jpanelHome);
@@ -463,7 +466,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                 .addComponent(comboCitasPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(labelDatosCita, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(195, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         jTabSegu.addTab("Perfil", jPanelPerfil);
@@ -667,7 +670,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                                     .addComponent(jTextFieldNuevoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jtextNuevaPublicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel18)
@@ -697,6 +700,11 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                 jList1SolicitudesAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jList1Solicitudes.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jList1SolicitudesFocusGained(evt);
             }
         });
         jScrollPane1.setViewportView(jList1Solicitudes);
@@ -733,6 +741,34 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
 
         jLabel6.setText("Solicitudes");
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Nombre", "Apellido", "Correo"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(jTable1);
+
         javax.swing.GroupLayout jPanelSolicitudesLayout = new javax.swing.GroupLayout(jPanelSolicitudes);
         jPanelSolicitudes.setLayout(jPanelSolicitudesLayout);
         jPanelSolicitudesLayout.setHorizontalGroup(
@@ -751,7 +787,8 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                         .addGroup(jPanelSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonAceptarSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jToggleButtonActualizarSolicitudes)
-                            .addComponent(jButtonRechazarSolicitud))))
+                            .addComponent(jButtonRechazarSolicitud)))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(167, 167, 167))
         );
         jPanelSolicitudesLayout.setVerticalGroup(
@@ -763,19 +800,21 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                     .addComponent(jComboBoxGrupoSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanelSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelSolicitudesLayout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(jLabel6))
+                    .addGroup(jPanelSolicitudesLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(jPanelSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanelSolicitudesLayout.createSequentialGroup()
                                 .addComponent(jToggleButtonActualizarSolicitudes)
                                 .addGap(29, 29, 29)
                                 .addComponent(jButtonAceptarSolicitud)
                                 .addGap(26, 26, 26)
-                                .addComponent(jButtonRechazarSolicitud))))
-                    .addGroup(jPanelSolicitudesLayout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(jLabel6)))
-                .addContainerGap(308, Short.MAX_VALUE))
+                                .addComponent(jButtonRechazarSolicitud)))))
+                .addGap(70, 70, 70)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         jTabSegu.addTab("Solicitudes", jPanelSolicitudes);
@@ -872,7 +911,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -942,7 +981,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonDescargarArchivoCompartido)
-                .addContainerGap(324, Short.MAX_VALUE))
+                .addContainerGap(201, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Archivos compartidos", jPanel3);
@@ -962,8 +1001,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabSegu, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jTabSegu, javax.swing.GroupLayout.PREFERRED_SIZE, 599, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1308,7 +1346,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                 File f = fc.getSelectedFile();
                 String path = f.getAbsolutePath();
                 String nombre = f.getName();
-                System.out.println("tipo de archivo "+jComboBox1.getSelectedIndex());
+                System.out.println("tipo de archivo " + jComboBox1.getSelectedIndex());
                 a = new Archivo(nombre, path, p, jComboBox1.getSelectedIndex());
                 p.getArchivos().add(a);
                 crearLog("cargar archivo", p.getNomUsuario() + " cargò " + nombre);
@@ -1339,6 +1377,33 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
 
     private void jButtonDescargaArchivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDescargaArchivosActionPerformed
         // TODO add your handling code here:
+        int opc = jTableMisArchivos.getSelectedRow();
+        TableModel tabla = jTableMisArchivos.getModel();
+        for (Persona pe : sistema.getPersonas()) {
+            if (pe.getCorreo().equals(jTextFieldEmail.getText())) {
+                for (Archivo a : pe.getArchivos()) {
+                    if (a.getTitulo().equals(tabla.getValueAt(opc, 1))) {
+                        try {
+                            a.guardarArchivo();
+                        } catch (NoSuchAlgorithmException ex) {
+                            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (NoSuchPaddingException ex) {
+                            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (InvalidKeyException ex) {
+                            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (InvalidAlgorithmParameterException ex) {
+                            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IllegalBlockSizeException ex) {
+                            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (BadPaddingException ex) {
+                            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex) {
+                            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+            }
+        }
 
     }//GEN-LAST:event_jButtonDescargaArchivosActionPerformed
 
@@ -1380,30 +1445,63 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
             tableModel1.removeRow(i);
         }
         for (Persona pe : sistema.getPersonas()) {
-            if (pe.getCorreo().equals(jTextFieldEmail.getText())) {
-                for (Archivo a : p.getArchivos()) {
-                    if (a.getTipo() == pe.getTipo() ){
-                        Vector<String> v = new Vector<String>();
-                        String fech = a.getFecha().get(Calendar.YEAR) + "/" + (a.getFecha().get(Calendar.MONTH) + 1) + "/" + a.getFecha().get(Calendar.DATE);
-                        String nom = a.getTitulo().toString();
-                        String us = pe.getNombre();
-                        v.add(fech);
-                        v.add(nom);
-                        v.add(us);
-                        tableModel1.addRow(v);
+            for (Archivo a : p.getArchivos()) {
+                if (a.getTipo() == pe.getTipo()) {
+                    if (a.getTipo() != 2) {
+                        if (!pe.equals(p)) {
+                            Vector<String> v = new Vector<String>();
+                            String fech = a.getFecha().get(Calendar.YEAR) + "/" + (a.getFecha().get(Calendar.MONTH) + 1) + "/" + a.getFecha().get(Calendar.DATE);
+                            String nom = a.getTitulo().toString();
+                            String us = pe.getNombre();
+                            v.add(fech);
+                            v.add(nom);
+                            v.add(us);
+                            tableModel1.addRow(v);
+                        }
                     }
                 }
-                
             }
         }
-        
+
         jTableArchivosCompartidos.setModel(tableModel1);
 
     }//GEN-LAST:event_jTabSeguFocusGained
 
     private void jButtonDescargarArchivoCompartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDescargarArchivoCompartidoActionPerformed
         // TODO add your handling code here:
+        int opc = jTableMisArchivos.getSelectedRow();
+        TableModel tabla = jTableMisArchivos.getModel();
+        for (Persona pe : sistema.getPersonas()) {
+            if (pe.getCorreo().equals(jTextFieldEmail.getText())) {
+                for (Archivo a : pe.getArchivos()) {
+                    if (a.getTitulo().equals(tabla.getValueAt(opc, 1))) {
+                        try {
+                            a.guardarArchivo();
+                        } catch (NoSuchAlgorithmException ex) {
+                            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (NoSuchPaddingException ex) {
+                            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (InvalidKeyException ex) {
+                            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (InvalidAlgorithmParameterException ex) {
+                            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IllegalBlockSizeException ex) {
+                            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (BadPaddingException ex) {
+                            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex) {
+                            Logger.getLogger(GUISeguridad.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_jButtonDescargarArchivoCompartidoActionPerformed
+
+    private void jList1SolicitudesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jList1SolicitudesFocusGained
+        // TODO add your handling code here:
+        System.out.println("Seleccionado");
+    }//GEN-LAST:event_jList1SolicitudesFocusGained
 
     /**
      * @param args the command line arguments
@@ -1520,11 +1618,13 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabSegu;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPaneHome;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTableArchivosCompartidos;
     private javax.swing.JTable jTableMisArchivos;
     private javax.swing.JTextArea jTextAreaPublicacion;
@@ -1582,6 +1682,7 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                     }
                     crearLog("login", p.getNomUsuario());
                 } else if (p.getTipo() == 1) {
+                    System.out.println("Entro");
                     jTextFieldEmail.setText(email);
                     jTextFieldEmail.setEnabled(false);
                     contraLogIn.setText(contra);
@@ -1592,14 +1693,18 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                     jtextIngresosMensualesPerfil.setText(String.valueOf(p.getDatosF().getIngresosMensuales()));
                     jtextIngresosTotalesPerfil.setText(String.valueOf(p.getDatosF().getDineroTotal()));
                     comboGastoPerfil.setEnabled(true);
+                    System.out.println("Sale0");
                     for (Double g : p.getDatosF().getGastos()) {
+                        System.out.println("Sale");
                         String gasto = String.valueOf(g);
                         comboGastoPerfil.addItem(gasto);
                     }
+
                     comboCitasPerfil.addItem("NO TIENE PERMISO");
                     labelDatosCita.setText("NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO NO TIENE PERMISO");
 
                     for (Grupo gr : sistema.getGrupos()) {
+
                         String elemento = gr.getNombreG();
                         comboVerGrupos.addItem(elemento);
                     }
@@ -1610,9 +1715,9 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                         }
                     }
                     crearLog("login", p.getNomUsuario());
-                }else if(p.getTipo() == 0){
-                
-                jTextFieldEmail.setText(email);
+                } else if (p.getTipo() == 0) {
+
+                    jTextFieldEmail.setText(email);
                     jTextFieldEmail.setEnabled(false);
                     contraLogIn.setText(contra);
                     contraLogIn.setEnabled(false);
@@ -1675,8 +1780,8 @@ public class GUISeguridad extends javax.swing.JFrame implements Serializable {
                 Logger.getLogger(GUISeguridad.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("Tipo de usuario "+comoTipo.getSelectedIndex());
-            sistema.getPersonas().add(new Persona(nombre, apellido, c,  comoTipo.getSelectedIndex(), correo, null, nomUsu));
+            System.out.println("Tipo de usuario " + comoTipo.getSelectedIndex());
+            sistema.getPersonas().add(new Persona(nombre, apellido, c, comoTipo.getSelectedIndex(), correo, null, nomUsu, new DatosFinancieros(ingMensu, ingTot, null)));
             crearLog("crear usuario", nomUsu);
             guardarSistema();
         }

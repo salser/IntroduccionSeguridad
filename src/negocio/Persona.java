@@ -23,7 +23,7 @@ public class Persona implements Serializable {
     private DatosFinancieros datosF;
     private List<Archivo> archivos;
 
-    public Persona(String nombre, String apellido, Contrasena contrasenia, int tipo, String correo,  List<Archivo> archivos, String nomUsuario) {
+    public Persona(String nombre, String apellido, Contrasena contrasenia, int tipo, String correo,  List<Archivo> archivos, String nomUsuario, DatosFinancieros datosF) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.contrasenia = contrasenia;
