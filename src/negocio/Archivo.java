@@ -38,12 +38,13 @@ public class Archivo implements Serializable{
 
     private String titulo;
     private Calendar fecha;
+    private int tipo;
     private byte[] dato;
     private byte[] hash;
     private Persona admin;
     private List<Persona> autorizados;
 
-    public Archivo(String titulo, String path, Persona admin) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
+    public Archivo(String titulo, String path, Persona admin, int tipo) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
         String[] ids = TimeZone.getAvailableIDs(-8 * 60 * 60 * 1000);
         if (ids.length == 0) {
             System.exit(0);
@@ -80,6 +81,7 @@ public class Archivo implements Serializable{
         md.update(this.dato);
         this.hash = md.digest();
         this.admin = admin;
+        this.tipo = tipo;
         this.autorizados = new ArrayList<Persona>();
     }
 
@@ -156,6 +158,16 @@ public class Archivo implements Serializable{
 
     public void setAutorizados(List<Persona> autorizados) {
         this.autorizados = autorizados;
+    }
+
+    
+    
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 
 }

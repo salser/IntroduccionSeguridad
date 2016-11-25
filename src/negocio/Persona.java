@@ -18,12 +18,12 @@ public class Persona implements Serializable {
     private String apellido;
     private String nomUsuario;
     private Contrasena contrasenia;
-    private String tipo;
+    private int tipo;
     private String correo;
     private DatosFinancieros datosF;
     private List<Archivo> archivos;
 
-    public Persona(String nombre, String apellido, Contrasena contrasenia, String tipo, String correo,  List<Archivo> archivos, String nomUsuario) {
+    public Persona(String nombre, String apellido, Contrasena contrasenia, int tipo, String correo,  List<Archivo> archivos, String nomUsuario) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.contrasenia = contrasenia;
@@ -66,11 +66,11 @@ public class Persona implements Serializable {
         this.contrasenia = contrasenia;
     }
 
-    public String getTipo() {
+    public int getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(int tipo) {
         this.tipo = tipo;
     }
 

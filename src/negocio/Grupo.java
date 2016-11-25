@@ -21,15 +21,6 @@ public class Grupo implements Serializable{
     private List<Persona> solicitudes;
     private Persona admin;
 
-    public Grupo(String nombreG, String tipoGrupo, Persona admin) {
-        this.nombreG = nombreG;
-        this.tipoGrupo = tipoGrupo;
-        this.publicaciones = new ArrayList<>();
-        this.usuarios = new ArrayList<>();
-        this.solicitudes = new ArrayList<>();
-        this.admin = admin;
-    }
-
     public List<Persona> getSolicitudes() {
         return solicitudes;
     }
@@ -37,7 +28,15 @@ public class Grupo implements Serializable{
     public void setSolicitudes(List<Persona> solicitudes) {
         this.solicitudes = solicitudes;
     }
-    
+
+    public Grupo(String nombreG, String tipoGrupo, Persona admin) {
+        this.nombreG = nombreG;
+        this.tipoGrupo = tipoGrupo;
+        this.publicaciones = new ArrayList<>();
+        this.usuarios = new ArrayList<>();
+        this.solicitudes = new ArrayList<Persona>();
+        this.admin = admin;
+    }
     public String getTipoGrupo() {
         return tipoGrupo;
     }
